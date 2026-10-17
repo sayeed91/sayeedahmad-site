@@ -1,0 +1,183 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import LoopVideo from '../LoopVideo.astro';
+import { explorationNeighbours } from '../../data/site';
+
+// Previous / next and "More explorations" at the end of an exploration page.
+// Explorations without a page yet show their name but aren't links.
+interface Props {
+  current: string;
+}
+const { prev, next, more } = explorationNeighbours(Astro.props.current);
+const href = (slug?: string) => (slug ? `/explorations/${slug}` : undefined);
+// "View all explorations" has no page yet, same as on the home page.
+const allExplorationsHref = '#';
+---
+
+<nav class="pn" aria-label="Explorations">
+  {
+    [
+      { x: prev, label: 'Previous', side: 'prev' },
+      { x: next, label: 'Next', side: 'next' },
+    ].map(({ x, label, side }) => {
+      const Tag = x.slug ? 'a' : 'div';
+      return (
+        <Tag class:list={['pn__item', `pn__item--${side}`]} href={href(x.slug)} data-sheet={x.slug ? '' : undefined}>
+          <span class="pn__label">{label}</span>
+          <span class="pn__row">
+            {side === 'prev' && <Icon name="arrow-left" />}
+            {x.title}
+            {side === 'next' && <Icon name="arrow-right" />}
+          </span>
+        </Tag>
+      );
+    })
+  }
+</nav>
+
+<section class="more" aria-labelledby="more-title">
+  <div class="more__head">
+    <h2 id="more-title" class="more__title">More explorations</h2>
+    <a class="more__all" href={allExplorationsHref}>View all explorations <Icon name="arrow-right" /></a>
+  </div>
+  <div class="more__cards">
+    {
+      more.map((x) => {
+        const Tag = x.slug ? 'a' : 'div';
+        return (
+          <Tag class="card" href={href(x.slug)} data-sheet={x.slug ? '' : undefined}>
+            <div class="card__thumb">
+              {x.thumb && x.video ? (
+                <LoopVideo src={x.video} poster={x.thumb} label={`${x.title}, ${x.type.toLowerCase()} concept`} width={960} height={720} />
+              ) : (
+                x.thumb && (
+                  <Image src={x.thumb} alt={`${x.title}, ${x.type.toLowerCase()} concept`} widths={[308, 616, 924]} sizes="(max-width: 560px) calc(100vw - 40px), 308px" />
+                )
+              )}
+            </div>
+            <div class="card__meta">
+              <span class="card__title">{x.title}</span>
+              <span class="card__type">{x.type}</span>
+            </div>
+          </Tag>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .pn {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  .pn__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .pn__item--next {
+    align-items: flex-end;
+    text-align: right;
+  }
+  .pn__label {
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--text-tertiary);
+  }
+  .pn__row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+  .pn__row :global(svg) {
+    flex-shrink: 0;
+    transition: transform 200ms ease;
+  }
+  a.pn__item--prev:hover .pn__row :global(svg) {
+    transform: translateX(-3px);
+  }
+  a.pn__item--next:hover .pn__row :global(svg) {
+    transform: translateX(3px);
+  }
+
+  .more {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 48px;
+  }
+  .more__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .more__title {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+  }
+  .more__all {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .more__all:hover {
+    color: var(--text-secondary);
+  }
+  .more__cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+  .card__thumb {
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .card__thumb :global(img),
+  .card__thumb :global(loop-video) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .card__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    line-height: 20px;
+  }
+  .card__title {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .card__type {
+    font-size: 13px;
+    color: var(--text-tertiary);
+  }
+  @media (max-width: 560px) {
+    .more__cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

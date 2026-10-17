@@ -1,7 +1,8 @@
 import etThumb from '../assets/home/case-elegant-themes.png';
 import riseThumb from '../assets/home/case-rise.png';
 import moenThumb from '../assets/home/case-moen.png';
-import haldenThumb from '../assets/home/exp-halden.png';
+import haldenPoster from '../assets/explorations/halden/poster.png';
+import haldenVideo from '../assets/explorations/halden/video-960.mp4';
 import type { ImageMetadata } from 'astro';
 
 export const site = {
@@ -68,9 +69,19 @@ export const nextCase = (slug: CaseSlug) => {
 // empty 4:3 slot. To fill one: export the shot at 1600×1200, put it in
 // src/assets/explorations/, import it above and set `thumb`. The tile crops
 // to 4:3 itself, so the image drops into place.
-type Exploration = { title: string; type: string; isNew?: boolean; thumb?: ImageMetadata };
+// `video` is a 960×720 muted loop for the tile; `thumb` is then its first
+// frame and doubles as the poster. `slug` means a detail page exists at
+// /explorations/<slug>.
+type Exploration = {
+  title: string;
+  type: string;
+  isNew?: boolean;
+  thumb?: ImageMetadata;
+  video?: string;
+  slug?: string;
+};
 export const explorations: Exploration[] = [
-  { title: 'Halden', type: 'Landing page', isNew: true, thumb: haldenThumb },
+  { title: 'Halden', type: 'Landing page', isNew: true, thumb: haldenPoster, video: haldenVideo, slug: 'halden' },
   { title: 'Lintel', type: 'Mobile app', isNew: true },
   { title: 'Saffra checkout', type: 'Mobile app' },
   { title: 'NOMA sales dashboard', type: 'Web app' },
@@ -120,3 +131,11 @@ export const recommendations = [
     title: 'Product Designer · same team at UX Cabin',
   },
 ];
+
+// Neighbours for an exploration's detail page: previous and next wrap around
+// the list, and "More explorations" shows the two after it.
+export const explorationNeighbours = (slug: string) => {
+  const i = explorations.findIndex((x) => x.slug === slug);
+  const at = (n: number) => explorations[(i + n + explorations.length) % explorations.length];
+  return { prev: at(-1), next: at(1), more: [at(1), at(2)] };
+};

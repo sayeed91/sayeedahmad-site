@@ -1,0 +1,111 @@
+---
+import CaseLayout from '../../layouts/CaseLayout.astro';
+import Intro from '../../components/case/Intro.astro';
+import Chapter from '../../components/case/Chapter.astro';
+import Figure from '../../components/case/Figure.astro';
+import LoopVideo from '../../components/LoopVideo.astro';
+import ExplorationFooter from '../../components/case/ExplorationFooter.astro';
+import poster from '../../assets/explorations/halden/poster.png';
+import video from '../../assets/explorations/halden/video-1280.mp4';
+import overview from '../../assets/explorations/halden/01-overview.png';
+import mobileWall from '../../assets/explorations/halden/02-mobile-wall.png';
+import heroDevices from '../../assets/explorations/halden/03-hero-devices.png';
+import collection from '../../assets/explorations/halden/04-collection.png';
+import woods from '../../assets/explorations/halden/05-woods.png';
+import mobileScreens from '../../assets/explorations/halden/06-mobile-screens.png';
+import product from '../../assets/explorations/halden/07-product.png';
+
+// Copy and shots come from Figma node 192:7481 "Sheet — Halden (full scroll)".
+// Shots are exported at 3x (1920 × 1440); the hero is a 1280 × 960 video.
+---
+
+<CaseLayout
+  title="Halden"
+  description="A landing page for a made-to-order furniture studio in the Hudson Valley. Concept work for an invented brand."
+>
+  <Intro
+    title="Halden"
+    tags={['Landing page', 'Desktop + mobile', 'Oct 2026']}
+    lede="A landing page for a made-to-order furniture studio in the Hudson Valley. Concept work for an invented brand: I wanted the photography to carry the page, so the type stays quiet and a line only appears where two things meet."
+  >
+    <LoopVideo
+      src={video}
+      poster={poster}
+      label="A scroll through the Halden landing page on desktop and mobile."
+      width={1280}
+      height={960}
+      class="hero-video"
+    />
+  </Intro>
+
+  <Chapter title="Challenge">
+    <p class="p">
+      Nobody spends close to five thousand dollars on a chair they have never touched without some hesitation. In a
+      showroom that hesitation is handled by the room itself: the light is controlled, each piece has space around it,
+      and you can walk up and check the grain with your hand. Online, all of that is gone and the buyer is left with a
+      photo and a price.
+    </p>
+    <p class="p">
+      Most furniture sites respond by showing more. More products per row, more badges, more offers. That works for a
+      $200 shelf, but it works against a made-to-order piece, because a crowded page tells the buyer this is ordinary
+      stock. The real problem was how to give one chair the same attention on a screen that it gets on a showroom
+      floor, without hiding the practical details a serious buyer still needs, like price, size and lead time.
+    </p>
+  </Chapter>
+
+  <div class="shots">
+    <Figure src={overview} alt="Halden desktop sections side by side: the hero, the workshop statement, the Hale chair page, the collection and the rooms." />
+    <Figure src={mobileWall} alt="Halden mobile screens on a dark background: the hero, the Hale chair, the collection list and the menu." />
+  </div>
+
+  <Chapter title="Solution">
+    <p class="p">
+      I built the page around the idea that each screen should hold one thing. Every section is roughly one viewport
+      tall and carries a single idea, so the buyer looks at one chair, then one list, then one room, the way they would
+      move through a showroom.
+    </p>
+    <p class="p">
+      The photography does the job the hand would normally do. Each photo shows one piece, lit from the side so the
+      grain is visible, and cropped close enough that the hero chair runs off the edge of the screen. I placed the chair
+      in front of the brand name on purpose, because the product should be the first thing you read, not the logo.
+    </p>
+    <p class="p">
+      For type I used only two levels and left out everything in between. A thin serif carries the names and statements
+      and never goes below 40px, while a sans handles prices, sizes and menus and never goes above 16px. That gap is
+      what makes the hierarchy obvious, and it let me keep the practical information on the page without it competing
+      with the furniture.
+    </p>
+    <p class="p">
+      The collection was the decision I went back and forth on most. A grid would show more products at once, but I
+      chose a plain list of names where the photo appears on hover. It shows less at a glance, and I accepted that,
+      because someone buying at this price is comparing two or three pieces, not browsing forty.
+    </p>
+    <p class="p">
+      Phones have no hover, so I rebuilt that section for mobile as swipe cards with the next one peeking in, moved the
+      price and the main action to the bottom of the screen where the thumb rests, and made every button full width.
+    </p>
+  </Chapter>
+
+  <div class="shots">
+    <Figure src={heroDevices} alt="The Halden hero on a desktop screen with the mobile hero beside it, over a room photo." />
+    <Figure src={collection} alt="The collection section: a list of piece names with the photo of the hovered piece on the right." />
+    <Figure src={woods} alt="The wood and finish swatches: paper, bone, walnut, olive, espresso and ink, next to a black walnut close-up." />
+    <Figure src={mobileScreens} alt="Halden mobile screens: the hero, the Hale chair page with its configure button, and the menu." />
+    <Figure src={product} alt="The Hale lounge chair page with detail photos of the wood and upholstery below it." />
+  </div>
+
+  <ExplorationFooter current="halden" />
+</CaseLayout>
+
+<style>
+  .shots {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  :global(.hero-video) {
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+</style>
