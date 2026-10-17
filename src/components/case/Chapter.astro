@@ -1,13 +1,14 @@
 ---
 interface Props {
-  title: string;
+  // Optional for exploration text blocks without a heading.
+  title?: string;
   gap?: number;
 }
 const { title, gap = 20 } = Astro.props;
 ---
 
 <section class="chapter" style={`--gap:${gap}px`}>
-  <h2 class="h2">{title}</h2>
+  {title && <h2 class="h2">{title}</h2>}
   <slot />
 </section>
 

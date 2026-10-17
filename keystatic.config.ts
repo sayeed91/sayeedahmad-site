@@ -44,20 +44,20 @@ export default config({
         }),
         isNew: fields.checkbox({ label: 'Show the "New" badge' }),
         video: fields.file({
-          label: 'Video',
+          label: 'Cover video',
           description:
-            'MP4, 4:3 (e.g. 1600 × 1200 from Figma Motion), under 25 MB. It is compressed automatically for the page and the home tile, and its first frame becomes the thumbnail.',
+            'Shown on the home tile and at the top of the page. MP4, 4:3 (e.g. 1600 × 1200 from Figma Motion), under 25 MB. It is compressed automatically for the page and the home tile, and its first frame becomes the thumbnail.',
           ...files,
         }),
         videoSpeed: fields.number({
-          label: 'Video speed',
+          label: 'Cover video speed',
           description: '1 = as exported. 1.2 = 20% faster, 0.8 = 20% slower.',
           defaultValue: 1,
           step: 0.05,
           validation: { min: 0.5, max: 3 },
         }),
         thumbnail: fields.image({
-          label: 'Thumbnail (only without a video)',
+          label: 'Cover image (only without a cover video)',
           description: '1600 × 1200 PNG or JPG. Ignored when a video is set.',
           ...files,
         }),
@@ -71,16 +71,17 @@ export default config({
         }),
         lede: fields.text({ label: 'Intro text', multiline: true }),
         videoAlt: fields.text({
-          label: 'Video description',
+          label: 'Cover description',
           description: 'For screen readers, e.g. "A scroll through the Halden landing page on desktop and mobile."',
         }),
         sections: fields.blocks(
           {
-            chapter: {
-              label: 'Text section',
-              itemLabel: (props) => props.fields.heading.value || 'Text section',
+            text: {
+              label: 'Text',
+              itemLabel: (props) =>
+                props.fields.heading.value || props.fields.body.value.slice(0, 60) || 'Text',
               schema: fields.object({
-                heading: fields.text({ label: 'Heading', description: 'e.g. Challenge, Solution' }),
+                heading: fields.text({ label: 'Heading (optional)', description: 'e.g. Challenge, Solution' }),
                 body: fields.text({
                   label: 'Text',
                   multiline: true,
@@ -88,29 +89,45 @@ export default config({
                 }),
               }),
             },
-            shots: {
-              label: 'Images',
-              itemLabel: (props) => `Images (${props.fields.images.elements.length})`,
+            image: {
+              label: 'Image',
+              itemLabel: (props) => props.fields.alt.value || 'Image',
               schema: fields.object({
-                images: fields.array(
-                  fields.object({
-                    image: fields.image({
-                      label: 'Image',
-                      description: 'Export the 640-wide Figma frame at 3x (1920 wide), PNG.',
-                      validation: { isRequired: true },
-                      ...files,
-                    }),
-                    alt: fields.text({ label: 'Description', description: 'What the image shows, for screen readers.' }),
-                  }),
-                  {
-                    label: 'Images',
-                    itemLabel: (props) => props.fields.alt.value || 'Image',
-                  },
-                ),
+                image: fields.image({
+                  label: 'Image',
+                  description: 'Export the 640-wide Figma frame at 3x (1920 wide), PNG. Any height works.',
+                  validation: { isRequired: true },
+                  ...files,
+                }),
+                alt: fields.text({ label: 'Description', description: 'What the image shows, for screen readers.' }),
+              }),
+            },
+            video: {
+              label: 'Video',
+              itemLabel: (props) => props.fields.alt.value || 'Video',
+              schema: fields.object({
+                video: fields.file({
+                  label: 'Video',
+                  description: 'MP4, 4:3, under 25 MB. Plays muted on a loop while on screen.',
+                  validation: { isRequired: true },
+                  ...files,
+                }),
+                speed: fields.number({
+                  label: 'Speed',
+                  description: '1 = as exported, 1.2 = 20% faster.',
+                  defaultValue: 1,
+                  step: 0.05,
+                  validation: { min: 0.5, max: 3 },
+                }),
+                alt: fields.text({ label: 'Description', description: 'What the video shows, for screen readers.' }),
               }),
             },
           },
-          { label: 'Page sections', description: 'Top to bottom, after the intro and video.' },
+          {
+            label: 'Content blocks',
+            description:
+              'Like a Dribbble shot: add Text, Image and Video blocks in any order, and drag to reorder. Images and videos placed one after another sit close together.',
+          },
         ),
       },
     }),

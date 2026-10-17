@@ -5,9 +5,16 @@ import Chapter from '../../components/case/Chapter.astro';
 import Figure from '../../components/case/Figure.astro';
 import LoopVideo from '../../components/LoopVideo.astro';
 import ExplorationFooter from '../../components/case/ExplorationFooter.astro';
-import { getExplorations, parseBody, type Exploration } from '../../data/explorations';
+import {
+  getExplorations,
+  groupSections,
+  parseBody,
+  videoFiles,
+  type Exploration,
+} from '../../data/explorations';
 
-// One template for every exploration page. Content is edited at /keystatic.
+// One template for every exploration page. Content is edited at /keystatic as
+// Text, Image and Video blocks in any order, like a Dribbble shot.
 export async function getStaticPaths() {
   const all = await getExplorations();
   return all.filter((x) => x.hasPage).map((x) => ({ params: { slug: x.slug }, props: { x } }));
@@ -15,31 +22,26 @@ export async function getStaticPaths() {
 
 const { x } = Astro.props as { x: Exploration };
 const d = x.entry.data;
+const coverAlt = d.videoAlt || `${x.title}, ${x.type.toLowerCase()} concept`;
+const groups = groupSections(d.sections);
 ---
 
 <CaseLayout title={x.title} description={d.lede ?? d.pageTitle ?? x.title}>
   <Intro title={d.pageTitle!} size="sm" tags={d.tags} lede={d.lede ?? ''}>
     {
       x.video && x.thumb ? (
-        <LoopVideo
-          src={x.video.hero}
-          poster={x.thumb}
-          label={d.videoAlt || `${x.title}, ${x.type.toLowerCase()} concept`}
-          width={1280}
-          height={960}
-          class="hero-video"
-        />
+        <LoopVideo src={x.video.hero} poster={x.thumb} label={coverAlt} width={1280} height={960} class="media-video" />
       ) : (
-        x.thumb && <Figure src={x.thumb} alt={d.videoAlt || `${x.title}, ${x.type.toLowerCase()} concept`} eager />
+        x.thumb && <Figure src={x.thumb} alt={coverAlt} eager />
       )
     }
   </Intro>
 
   {
-    d.sections.map((s) =>
-      s.discriminant === 'chapter' ? (
-        <Chapter title={s.value.heading}>
-          {parseBody(s.value.body).map((b) =>
+    groups.map((g) =>
+      g.kind === 'text' ? (
+        <Chapter title={g.section.value.heading || undefined}>
+          {parseBody(g.section.value.body).map((b) =>
             b.kind === 'p' ? (
               <p class="p">{b.text}</p>
             ) : (
@@ -52,10 +54,18 @@ const d = x.entry.data;
           )}
         </Chapter>
       ) : (
-        <div class="shots">
-          {s.value.images.map((img) => (
-            <Figure src={img.image} alt={img.alt} />
-          ))}
+        <div class="media">
+          {g.items.map((s) => {
+            if (s.discriminant === 'image') return <Figure src={s.value.image} alt={s.value.alt} />;
+            if (s.discriminant !== 'video') return null;
+            const v = videoFiles(x.slug, s.value.video, s.value.speed);
+            return (
+              v.page &&
+              v.poster && (
+                <LoopVideo src={v.page} poster={v.poster} label={s.value.alt} width={1280} height={960} class="media-video" />
+              )
+            );
+          })}
         </div>
       ),
     )
@@ -65,12 +75,12 @@ const d = x.entry.data;
 </CaseLayout>
 
 <style>
-  .shots {
+  .media {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
-  :global(.hero-video) {
+  :global(.media-video) {
     aspect-ratio: 4 / 3;
     border-radius: 16px;
     overflow: hidden;
@@ -79,7 +89,7 @@ const d = x.entry.data;
     padding-left: 24px;
     list-style: disc;
   }
-  /* In Figma the list follows its paragraph after one empty line (26px), not the 20px section gap. */
+  /* In Figma a list follows its paragraph after one empty line (26px), not the 20px gap. */
   .p + .list {
     margin-top: 6px;
   }

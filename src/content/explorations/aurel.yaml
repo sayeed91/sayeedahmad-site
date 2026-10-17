@@ -15,19 +15,18 @@ lede: >-
   desktop and mobile.
 videoAlt: A scroll through the Aurel landing page on desktop and mobile.
 sections:
-  - discriminant: chapter
+  - discriminant: text
     value:
       heading: Challenge
       body: |-
         Perfume is hard to sell on a screen, because you can't smell it. Most perfume sites answer that with a dark page and a product grid, and the bottles end up looking the same.
 
         The challenge here was to make three perfumes feel different without changing the layout, and to keep the page bright and warm while it still feels expensive.
-  - discriminant: shots
+  - discriminant: image
     value:
-      images:
-        - image: ../../assets/explorations/aurel/01-shot-03.png
-          alt: "The Aurel hero on desktop and mobile: the 18:42 bottle in front of the brand name, with the line Stay for the last light."
-  - discriminant: chapter
+      image: ../../assets/explorations/aurel/01-shot-03.png
+      alt: "The Aurel hero on desktop and mobile: the 18:42 bottle in front of the brand name, with the line Stay for the last light."
+  - discriminant: text
     value:
       heading: Solution
       body: |-
@@ -38,12 +37,15 @@ sections:
         - Ingredients float beside the bottle as cut-outs, with no box around them.
         - Text always sits in the bottom corners, 64 px from the edge.
         - The sun drops a little lower in every section. By the footer it is half set behind a calm sea.
-  - discriminant: shots
+  - discriminant: image
     value:
-      images:
-        - image: ../../assets/explorations/aurel/02-shot-05.png
-          alt: The Aurel mobile hero on a phone held in a hand against a black background.
-        - image: ../../assets/explorations/aurel/03-shot-02.png
-          alt: "The three Aurel perfumes side by side: 17:20 Low Sun, 18:42 Last Light and 21:05 After Dark."
-        - image: ../../assets/explorations/aurel/04-full-page.png
-          alt: The full Aurel landing page, going from pale cream at the top to deep red at the footer.
+      image: ../../assets/explorations/aurel/02-shot-05.png
+      alt: The Aurel mobile hero on a phone held in a hand against a black background.
+  - discriminant: image
+    value:
+      image: ../../assets/explorations/aurel/03-shot-02.png
+      alt: "The three Aurel perfumes side by side: 17:20 Low Sun, 18:42 Last Light and 21:05 After Dark."
+  - discriminant: image
+    value:
+      image: ../../assets/explorations/aurel/04-full-page.png
+      alt: The full Aurel landing page, going from pale cream at the top to deep red at the footer.

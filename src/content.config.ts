@@ -24,14 +24,16 @@ const explorations = defineCollection({
         .array(
           z.discriminatedUnion('discriminant', [
             z.object({
-              discriminant: z.literal('chapter'),
+              discriminant: z.literal('text'),
               value: z.object({ heading: z.string().default(''), body: z.string().default('') }),
             }),
             z.object({
-              discriminant: z.literal('shots'),
-              value: z.object({
-                images: z.array(z.object({ image: image(), alt: z.string().default('') })).default([]),
-              }),
+              discriminant: z.literal('image'),
+              value: z.object({ image: image(), alt: z.string().default('') }),
+            }),
+            z.object({
+              discriminant: z.literal('video'),
+              value: z.object({ video: z.string(), speed: z.number().nullish(), alt: z.string().default('') }),
             }),
           ]),
         )
