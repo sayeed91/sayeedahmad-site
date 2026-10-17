@@ -1,0 +1,86 @@
+---
+import CaseLayout from '../../layouts/CaseLayout.astro';
+import Intro from '../../components/case/Intro.astro';
+import Chapter from '../../components/case/Chapter.astro';
+import Figure from '../../components/case/Figure.astro';
+import LoopVideo from '../../components/LoopVideo.astro';
+import ExplorationFooter from '../../components/case/ExplorationFooter.astro';
+import { getExplorations, parseBody, type Exploration } from '../../data/explorations';
+
+// One template for every exploration page. Content is edited at /keystatic.
+export async function getStaticPaths() {
+  const all = await getExplorations();
+  return all.filter((x) => x.hasPage).map((x) => ({ params: { slug: x.slug }, props: { x } }));
+}
+
+const { x } = Astro.props as { x: Exploration };
+const d = x.entry.data;
+---
+
+<CaseLayout title={x.title} description={d.lede ?? d.pageTitle ?? x.title}>
+  <Intro title={d.pageTitle!} size="sm" tags={d.tags} lede={d.lede ?? ''}>
+    {
+      x.video && x.thumb ? (
+        <LoopVideo
+          src={x.video.hero}
+          poster={x.thumb}
+          label={d.videoAlt || `${x.title}, ${x.type.toLowerCase()} concept`}
+          width={1280}
+          height={960}
+          class="hero-video"
+        />
+      ) : (
+        x.thumb && <Figure src={x.thumb} alt={d.videoAlt || `${x.title}, ${x.type.toLowerCase()} concept`} eager />
+      )
+    }
+  </Intro>
+
+  {
+    d.sections.map((s) =>
+      s.discriminant === 'chapter' ? (
+        <Chapter title={s.value.heading}>
+          {parseBody(s.value.body).map((b) =>
+            b.kind === 'p' ? (
+              <p class="p">{b.text}</p>
+            ) : (
+              <ul class="list p">
+                {b.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            ),
+          )}
+        </Chapter>
+      ) : (
+        <div class="shots">
+          {s.value.images.map((img) => (
+            <Figure src={img.image} alt={img.alt} />
+          ))}
+        </div>
+      ),
+    )
+  }
+
+  <ExplorationFooter current={x.slug} />
+</CaseLayout>
+
+<style>
+  .shots {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  :global(.hero-video) {
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .list {
+    padding-left: 24px;
+    list-style: disc;
+  }
+  /* In Figma the list follows its paragraph after one empty line (26px), not the 20px section gap. */
+  .p + .list {
+    margin-top: 6px;
+  }
+</style>

@@ -2,15 +2,15 @@
 import { Image } from 'astro:assets';
 import Icon from '../Icon.astro';
 import LoopVideo from '../LoopVideo.astro';
-import { explorationNeighbours } from '../../data/site';
+import { explorationNeighbours, type Exploration } from '../../data/explorations';
 
 // Previous / next and "More explorations" at the end of an exploration page.
 // Explorations without a page yet show their name but aren't links.
 interface Props {
   current: string;
 }
-const { prev, next, more } = explorationNeighbours(Astro.props.current);
-const href = (slug?: string) => (slug ? `/explorations/${slug}` : undefined);
+const { prev, next, more } = await explorationNeighbours(Astro.props.current);
+const href = (x: Exploration) => (x.hasPage ? `/explorations/${x.slug}` : undefined);
 // "View all explorations" has no page yet, same as on the home page.
 const allExplorationsHref = '#';
 ---
@@ -21,9 +21,9 @@ const allExplorationsHref = '#';
       { x: prev, label: 'Previous', side: 'prev' },
       { x: next, label: 'Next', side: 'next' },
     ].map(({ x, label, side }) => {
-      const Tag = x.slug ? 'a' : 'div';
+      const Tag = x.hasPage ? 'a' : 'div';
       return (
-        <Tag class:list={['pn__item', `pn__item--${side}`]} href={href(x.slug)} data-sheet={x.slug ? '' : undefined}>
+        <Tag class:list={['pn__item', `pn__item--${side}`]} href={href(x)} data-sheet={x.hasPage ? '' : undefined}>
           <span class="pn__label">{label}</span>
           <span class="pn__row">
             {side === 'prev' && <Icon name="arrow-left" />}
@@ -44,12 +44,12 @@ const allExplorationsHref = '#';
   <div class="more__cards">
     {
       more.map((x) => {
-        const Tag = x.slug ? 'a' : 'div';
+        const Tag = x.hasPage ? 'a' : 'div';
         return (
-          <Tag class="card" href={href(x.slug)} data-sheet={x.slug ? '' : undefined}>
+          <Tag class="card" href={href(x)} data-sheet={x.hasPage ? '' : undefined}>
             <div class="card__thumb">
               {x.thumb && x.video ? (
-                <LoopVideo src={x.video} poster={x.thumb} label={`${x.title}, ${x.type.toLowerCase()} concept`} width={960} height={720} />
+                <LoopVideo src={x.video.tile} poster={x.thumb} label={`${x.title}, ${x.type.toLowerCase()} concept`} width={960} height={720} />
               ) : (
                 x.thumb && (
                   <Image src={x.thumb} alt={`${x.title}, ${x.type.toLowerCase()} concept`} widths={[308, 616, 924]} sizes="(max-width: 560px) calc(100vw - 40px), 308px" />

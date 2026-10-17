@@ -1,0 +1,44 @@
+# Builds and publishes sayeedahmad.com on every push to main, including the
+# commits the admin panel (/keystatic) makes when he presses Save.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      # Compressed videos are reused between runs; only changed ones are encoded.
+      - uses: actions/cache@v4
+        with:
+          path: src/generated
+          key: videos-${{ hashFiles('src/content/explorations/*.yaml', 'src/assets/explorations/**/*.mp4') }}
+          restore-keys: videos-
+
+      - run: npm ci
+
+      # Runs `npm run build` with the site's Netlify environment variables, then publishes.
+      - name: Build and deploy
+        run: npx -y netlify-cli@27.13.0 deploy --build --prod --site "$NETLIFY_SITE_ID" --message "$MESSAGE"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: 38eb9eef-4bb4-4d2b-9b36-9824a3352d0b
+          MESSAGE: ${{ github.event.head_commit.message }}

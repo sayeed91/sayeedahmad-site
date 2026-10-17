@@ -7,11 +7,14 @@ import Icon from '../components/Icon.astro';
 import SheetOverlay from '../components/SheetOverlay.astro';
 import LoopVideo from '../components/LoopVideo.astro';
 import avatar from '../assets/home/avatar.png';
-import { site, cases, experience, recommendations, explorations } from '../data/site';
+import { site, cases, experience, recommendations } from '../data/site';
+import { getExplorations } from '../data/explorations';
 
 // "View all explorations" has no page yet; it becomes a real link once that
 // page is designed.
 const allExplorationsHref = '#';
+// The grid shows the first six (two rows of three).
+const explorations = (await getExplorations()).slice(0, 6);
 ---
 
 <Base
@@ -116,15 +119,15 @@ const allExplorationsHref = '#';
       </div>
       <div class="explorations__grid">
         {
-          explorations.slice(0, 6).map((x) => {
-            const Tile = x.slug ? 'a' : 'article';
-            const link = x.slug ? { href: `/explorations/${x.slug}`, 'data-sheet': '' } : {};
+          explorations.map((x) => {
+            const Tile = x.hasPage ? 'a' : 'article';
+            const link = x.hasPage ? { href: `/explorations/${x.slug}`, 'data-sheet': '' } : {};
             return (
             <Tile class="exp" {...link}>
               <div class:list={['exp__thumb', !x.thumb && 'exp__thumb--empty']}>
                 {x.thumb && x.video ? (
                   <LoopVideo
-                    src={x.video}
+                    src={x.video.tile}
                     poster={x.thumb}
                     label={`${x.title}, ${x.type.toLowerCase()} concept`}
                     width={960}

@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# compressed exploration videos (scripts/prepare-videos.mjs)
+src/generated/
+
+# netlify
+.netlify/

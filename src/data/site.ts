@@ -1,10 +1,6 @@
 import etThumb from '../assets/home/case-elegant-themes.png';
 import riseThumb from '../assets/home/case-rise.png';
 import moenThumb from '../assets/home/case-moen.png';
-import haldenPoster from '../assets/explorations/halden/poster.png';
-import haldenVideo from '../assets/explorations/halden/video-960.mp4';
-import aurelPoster from '../assets/explorations/aurel/poster.png';
-import aurelVideo from '../assets/explorations/aurel/video-960.mp4';
 import type { ImageMetadata } from 'astro';
 
 export const site = {
@@ -67,32 +63,8 @@ export const nextCase = (slug: CaseSlug) => {
   return cases[(i + 1) % cases.length];
 };
 
-// Explorations on the home page. Entries without a thumbnail render as an
-// empty 4:3 slot. To fill one: export the shot at 1600×1200, put it in
-// src/assets/explorations/, import it above and set `thumb`. The tile crops
-// to 4:3 itself, so the image drops into place.
-// `video` is a 960×720 muted loop for the tile; `thumb` is then its first
-// frame and doubles as the poster. `slug` means a detail page exists at
-// /explorations/<slug>.
-// The home grid shows the first six (two rows of three); the rest stay in the
-// list for prev/next and "More explorations".
-type Exploration = {
-  title: string;
-  type: string;
-  isNew?: boolean;
-  thumb?: ImageMetadata;
-  video?: string;
-  slug?: string;
-};
-export const explorations: Exploration[] = [
-  { title: 'Halden', type: 'Landing page', isNew: true, thumb: haldenPoster, video: haldenVideo, slug: 'halden' },
-  { title: 'Aurel', type: 'Landing page', thumb: aurelPoster, video: aurelVideo, slug: 'aurel' },
-  { title: 'Lintel', type: 'Mobile app', isNew: true },
-  { title: 'Saffra checkout', type: 'Mobile app' },
-  { title: 'NOMA sales dashboard', type: 'Web app' },
-  { title: 'AERA flight booking', type: 'Mobile app' },
-  { title: 'Romp pet care', type: 'Landing page' },
-];
+// Explorations live in src/content/explorations (edited at /keystatic);
+// see src/data/explorations.ts.
 
 export const experience = [
   {
@@ -136,11 +108,3 @@ export const recommendations = [
     title: 'Product Designer · same team at UX Cabin',
   },
 ];
-
-// Neighbours for an exploration's detail page: previous and next wrap around
-// the list, and "More explorations" shows the two after it.
-export const explorationNeighbours = (slug: string) => {
-  const i = explorations.findIndex((x) => x.slug === slug);
-  const at = (n: number) => explorations[(i + n + explorations.length) % explorations.length];
-  return { prev: at(-1), next: at(1), more: [at(1), at(2)] };
-};
