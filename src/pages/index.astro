@@ -8,8 +8,9 @@ import SheetOverlay from '../components/SheetOverlay.astro';
 import avatar from '../assets/home/avatar.png';
 import { site, cases, experience, recommendations, explorations } from '../data/site';
 
-// A grid of one or two looks unfinished, so the section waits for three.
-const showExplorations = explorations.length >= 3;
+// "View all explorations" has no page yet; it becomes a real link once that
+// page is designed.
+const allExplorationsHref = '#';
 ---
 
 <Base
@@ -99,44 +100,53 @@ const showExplorations = explorations.length >= 3;
       </section>
     </div>
 
-    {
-      showExplorations && (
-        <section class="explorations" aria-labelledby="explorations-title">
-          <div class="explorations__head">
-            <div>
-              <h2 id="explorations-title" class="label">
-                Explorations
-              </h2>
-              <p class="explorations__lede">
-                Concept work from the last 30 days. Landing pages, app flows and motion I design outside client projects
-                and publish on Dribbble.
-              </p>
-            </div>
-          </div>
-          <div class="explorations__grid">
-            {explorations.map((x) => (
-              <article class="exp">
-                <div class="exp__thumb">
-                  <Image src={x.thumb} alt={`${x.title}, ${x.type.toLowerCase()} concept`} widths={[384, 768]} sizes="384px" />
-                </div>
-                <div class="exp__meta">
-                  <span class="exp__left">
-                    <span class="exp__title">{x.title}</span>
-                    {x.isNew && <span class="exp__new">New</span>}
-                  </span>
-                  <span class="exp__type">{x.type}</span>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div class="explorations__actions">
-            <a class="link-muted" href={site.dribbble} target="_blank" rel="noopener">
-              Follow on Dribbble <Icon name="arrow-up-right" size={14} />
-            </a>
-          </div>
-        </section>
-      )
-    }
+    <section class="explorations" aria-labelledby="explorations-title">
+      <div class="explorations__head">
+        <div>
+          <h2 id="explorations-title" class="label">Explorations</h2>
+          <p class="explorations__lede">
+            Concept work from the last 30 days. Landing pages, app flows and motion I design outside client projects and
+            publish on Dribbble.
+          </p>
+        </div>
+        <a class="link-strong explorations__all" href={allExplorationsHref}>
+          View all explorations <Icon name="arrow-right" />
+        </a>
+      </div>
+      <div class="explorations__grid">
+        {
+          explorations.map((x) => (
+            <article class="exp">
+              <div class:list={['exp__thumb', !x.thumb && 'exp__thumb--empty']}>
+                {x.thumb && (
+                  <Image
+                    src={x.thumb}
+                    alt={`${x.title}, ${x.type.toLowerCase()} concept`}
+                    widths={[384, 768]}
+                    sizes="(max-width: 680px) calc(100vw - 40px), 384px"
+                  />
+                )}
+              </div>
+              <div class="exp__meta">
+                <span class="exp__left">
+                  <span class="exp__title">{x.title}</span>
+                  {x.isNew && <span class="exp__new">New</span>}
+                </span>
+                <span class="exp__type">{x.type}</span>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div class="explorations__actions">
+        <a class="btn-outline" href={allExplorationsHref}>
+          View all explorations <Icon name="arrow-right" />
+        </a>
+        <a class="link-muted" href={site.dribbble} target="_blank" rel="noopener">
+          Follow on Dribbble <Icon name="arrow-up-right" size={14} />
+        </a>
+      </div>
+    </section>
 
     <div class="column home home--tail">
       <section class="recs" aria-labelledby="recs-title">
@@ -379,15 +389,74 @@ const showExplorations = explorations.length >= 3;
     flex-direction: column;
     gap: 28px;
   }
+  .explorations__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
   .explorations__lede {
     max-width: 520px;
     margin-top: 8px;
     color: var(--text-secondary);
   }
+  .link-strong {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .link-strong:hover {
+    color: var(--text-secondary);
+  }
   .explorations__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 36px 24px;
+  }
+  .exp__thumb--empty {
+    background: var(--surface);
+  }
+  .explorations__actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px 10px 20px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    transition: background-color 150ms ease;
+  }
+  .btn-outline:hover {
+    background: var(--surface);
+  }
+  @media (max-width: 960px) {
+    .explorations__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .explorations {
+      padding-top: 88px;
+    }
+    .explorations__grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .explorations__all {
+      display: none;
+    }
   }
   .exp__thumb {
     aspect-ratio: 4 / 3;

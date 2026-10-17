@@ -2,6 +2,7 @@ import etThumb from '../assets/home/case-elegant-themes.png';
 import riseThumb from '../assets/home/case-rise.png';
 import moenThumb from '../assets/home/case-moen.png';
 import haldenThumb from '../assets/home/exp-halden.png';
+import type { ImageMetadata } from 'astro';
 
 export const site = {
   name: 'Sayeed Ahmad',
@@ -31,7 +32,7 @@ export const cases = [
     summary:
       'Nine years on Divi, a builder with nearly a million customers, most of them not designers. 200+ layout packs, one Figma source of truth for every Divi module, and the templates Divi AI builds pages from.',
     thumb: etThumb,
-    thumbAlt: 'Divi colour tokens next to a wall of Divi layouts',
+    thumbAlt: 'Elegant Themes logo on a purple to blue gradient',
   },
   {
     slug: 'rise',
@@ -40,7 +41,7 @@ export const cases = [
     summary:
       'Product design for a payroll and compliance platform that pays contractors in 190+ countries. About 70 screens across six product areas, in light and dark, with tokens named 1:1 with Tailwind.',
     thumb: riseThumb,
-    thumbAlt: 'A wall of Rise payroll screens in light and dark',
+    thumbAlt: 'Rise logo on a purple gradient',
   },
   {
     slug: 'moen',
@@ -49,7 +50,7 @@ export const cases = [
     summary:
       'One of four designers on the merge. I owned the source-of-truth Figma file and kept every screen attached to the 400+ component system, ready for handoff.',
     thumb: moenThumb,
-    thumbAlt: 'Moen design system tokens next to the merged app screens',
+    thumbAlt: 'Moen Smart Water Network logo on a slate blue gradient',
   },
 ] as const;
 
@@ -60,10 +61,18 @@ export const nextCase = (slug: CaseSlug) => {
   return cases[(i + 1) % cases.length];
 };
 
-// Explorations show only when they have a real thumbnail. Add an entry here
-// (4:3, 1600×1200 export) and the card appears on the home page.
-export const explorations = [
+// Explorations on the home page. Entries without a thumbnail render as an
+// empty 4:3 slot. To fill one: export the shot at 1600×1200, put it in
+// src/assets/explorations/, import it above and set `thumb`. The tile crops
+// to 4:3 itself, so the image drops into place.
+type Exploration = { title: string; type: string; isNew?: boolean; thumb?: ImageMetadata };
+export const explorations: Exploration[] = [
   { title: 'Halden', type: 'Landing page', isNew: true, thumb: haldenThumb },
+  { title: 'Lintel', type: 'Mobile app', isNew: true },
+  { title: 'Saffra checkout', type: 'Mobile app' },
+  { title: 'NOMA sales dashboard', type: 'Web app' },
+  { title: 'AERA flight booking', type: 'Mobile app' },
+  { title: 'Romp pet care', type: 'Landing page' },
 ];
 
 export const experience = [

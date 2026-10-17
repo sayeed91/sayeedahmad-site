@@ -29,9 +29,8 @@ import { site } from '../data/site';
     justify-content: space-between;
     gap: 16px;
     padding: 14px 24px 14px 32px;
-    background: color-mix(in srgb, var(--surface) 86%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    /* Fully opaque: nothing should show through while the page scrolls under it. */
+    background: var(--surface);
     border-bottom: 1px solid var(--line);
   }
   .identity {

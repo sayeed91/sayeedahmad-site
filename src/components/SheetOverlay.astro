@@ -105,9 +105,11 @@
         document.head.append(link.cloneNode());
       }
     });
+    // Inline <style> blocks are compared whole: pages share the same opening
+    // (global tokens), so a prefix match wrongly skipped page-specific CSS.
     doc.head.querySelectorAll('style').forEach((style) => {
-      const key = style.textContent?.slice(0, 200) ?? '';
-      const exists = Array.from(document.head.querySelectorAll('style')).some((s) => s.textContent?.slice(0, 200) === key);
+      const text = style.textContent ?? '';
+      const exists = Array.from(document.head.querySelectorAll('style')).some((s) => s.textContent === text);
       if (!exists) document.head.append(style.cloneNode(true));
     });
     doc.querySelectorAll<HTMLScriptElement>('script[type="module"]').forEach((script) => {
@@ -118,8 +120,8 @@
         s.src = src;
         document.head.append(s);
       } else if (!src && script.textContent && !script.closest('#sheet')) {
-        const key = script.textContent.slice(0, 200);
-        const exists = Array.from(document.querySelectorAll('script[type="module"]')).some((s) => s.textContent?.slice(0, 200) === key);
+        const text = script.textContent;
+        const exists = Array.from(document.querySelectorAll('script[type="module"]')).some((s) => s.textContent === text);
         if (!exists) {
           const s = document.createElement('script');
           s.type = 'module';
