@@ -12,7 +12,7 @@ export const site = {
   dribbble: 'https://dribbble.com/sayeed_ahmad',
   youtube: 'https://www.youtube.com/@sayeedahmaddesigns',
   instagram: 'https://www.instagram.com/sayeedahmaddesigns',
-  x: 'https://x.com/SimpleSayeed',
+  x: 'https://x.com/sayeedbuilds',
   resume: '/sayeed-ahmad-resume.pdf',
   // No Cal.com link exists yet. Until one does, "Book a call" opens an email.
   bookCall: 'mailto:ahmadsayeed1991@gmail.com?subject=Book%20a%20call',
