@@ -1,0 +1,45 @@
+---
+import { nav } from '../data/site';
+const path = Astro.url.pathname.replace(/(index)?(\.html)?$/, '');
+const current = path === '/' || path === '' ? 'Home' : '';
+---
+
+<nav class="home-nav" aria-label="Main">
+  {
+    nav.map((item) => (
+      <a
+        href={item.href}
+        class:list={['home-nav__link', item.label === current && 'is-current']}
+        aria-current={item.label === current ? 'page' : undefined}
+        aria-disabled={item.href === '#' ? 'true' : undefined}
+      >
+        {item.label}
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .home-nav {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    padding-top: 32px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .home-nav__link {
+    color: var(--text-secondary);
+    transition: color 150ms ease;
+  }
+  .home-nav__link:hover,
+  .home-nav__link.is-current {
+    color: var(--text-primary);
+  }
+  @media (max-width: 480px) {
+    .home-nav {
+      gap: 20px;
+    }
+  }
+</style>

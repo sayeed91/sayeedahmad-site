@@ -1,0 +1,157 @@
+---
+import { Image } from 'astro:assets';
+import coffee from '../../assets/et/ai-slides/coffee.png';
+import interior from '../../assets/et/ai-slides/interior.webp';
+import ngo from '../../assets/et/ai-slides/ngo.webp';
+
+// Same cadence as the Figma component and elegantthemes.com/ai: a slide holds
+// for 4s, crossfades over 1s, and its prompt types at 50ms per character.
+const slides = [
+  { prompt: 'Artisanal Coffee Shop & Cafe', src: coffee, alt: 'A site Divi AI generated for an artisanal coffee shop and cafe' },
+  { prompt: 'Modern Interior Design Company', src: interior, alt: 'A site Divi AI generated for a modern interior design company' },
+  { prompt: 'Forward-thinking environmental NGO', src: ngo, alt: 'A site Divi AI generated for a forward-thinking environmental NGO' },
+];
+---
+
+<ai-slideshow class="ai">
+  <p class="ai__prompt" aria-live="off"><span class="ai__text">{slides[0].prompt}</span><span class="ai__caret" aria-hidden="true"></span></p>
+  <div class="ai__stage">
+    {
+      slides.map((s, i) => (
+        <div class:list={['ai__slide', i === 0 && 'is-active']} data-prompt={s.prompt}>
+          <Image src={s.src} alt={s.alt} widths={[608, 1216]} sizes="(max-width: 680px) calc(100vw - 72px), 608px" />
+        </div>
+      ))
+    }
+  </div>
+</ai-slideshow>
+
+<style>
+  .ai {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 16px;
+    background: var(--bg);
+  }
+  .ai__prompt {
+    display: flex;
+    align-items: center;
+    min-width: min(400px, 100%);
+    min-height: 39px;
+    padding: 9px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 19px;
+    color: #17191d;
+  }
+  .ai__caret {
+    width: 2px;
+    height: 16px;
+    margin-left: 2px;
+    background: #17191d;
+    animation: caret 1s steps(1) infinite;
+  }
+  .ai__text :global(.is-hot) {
+    color: #ff5700;
+  }
+  .ai__text :global(.is-warm) {
+    color: #8ec97d;
+  }
+  .ai__stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 608 / 313;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+  }
+  .ai__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  .ai__slide.is-active {
+    opacity: 1;
+  }
+  .ai__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @keyframes caret {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  class AiSlideshow extends HTMLElement {
+    private timers: number[] = [];
+    private index = 0;
+    private observer?: IntersectionObserver;
+
+    connectedCallback() {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      this.observer = new IntersectionObserver(([entry]) => {
+        this.stop();
+        if (entry.isIntersecting) this.schedule();
+      });
+      this.observer.observe(this);
+    }
+
+    disconnectedCallback() {
+      this.stop();
+      this.observer?.disconnect();
+    }
+
+    private get slides() {
+      return Array.from(this.querySelectorAll<HTMLElement>('.ai__slide'));
+    }
+
+    private stop() {
+      this.timers.forEach(clearTimeout);
+      this.timers = [];
+    }
+
+    private later(fn: () => void, ms: number) {
+      this.timers.push(window.setTimeout(fn, ms));
+    }
+
+    private schedule() {
+      this.later(() => this.advance(), 4000);
+    }
+
+    private type(text: string) {
+      const el = this.querySelector('.ai__text') as HTMLElement;
+      el.textContent = '';
+      [...text].forEach((ch, i) => {
+        this.later(() => {
+          const span = document.createElement('span');
+          span.textContent = ch;
+          span.className = 'is-hot';
+          el.appendChild(span);
+          this.later(() => (span.className = 'is-warm'), 50);
+          this.later(() => (span.className = ''), 200);
+        }, 200 + i * 50);
+      });
+    }
+
+    private advance() {
+      const slides = this.slides;
+      slides[this.index].classList.remove('is-active');
+      this.index = (this.index + 1) % slides.length;
+      slides[this.index].classList.add('is-active');
+      this.type(slides[this.index].dataset.prompt ?? '');
+      this.schedule();
+    }
+  }
+  if (!customElements.get('ai-slideshow')) customElements.define('ai-slideshow', AiSlideshow);
+</script>

@@ -1,0 +1,90 @@
+---
+import { Image } from 'astro:assets';
+import s1 from '../../assets/et/wall-strips/built-with-divi-1.webp';
+import s2 from '../../assets/et/wall-strips/built-with-divi-2.webp';
+import s3 from '../../assets/et/wall-strips/built-with-divi-3.webp';
+import s4 from '../../assets/et/wall-strips/built-with-divi-4.webp';
+import s5 from '../../assets/et/wall-strips/built-with-divi-5.webp';
+import s6 from '../../assets/et/wall-strips/built-with-divi-6.webp';
+import s7 from '../../assets/et/wall-strips/built-with-divi-7.webp';
+import s8 from '../../assets/et/wall-strips/built-with-divi-8.webp';
+
+// Matches the Figma cover: 4 columns, each stacks strips n and n+4, columns
+// alternate direction, 56/64/52/68s linear loops. Each track holds the pair
+// twice so translating by -50% loops without a seam.
+const columns = [
+  { strips: [s1, s5], dir: 'up', dur: 56 },
+  { strips: [s2, s6], dir: 'down', dur: 64 },
+  { strips: [s3, s7], dir: 'up', dur: 52 },
+  { strips: [s4, s8], dir: 'down', dur: 68 },
+];
+---
+
+<div class="wall" role="img" aria-label="A moving wall of layouts built with Divi">
+  {
+    columns.map((col) => (
+      <div class="wall__col">
+        <div class:list={['wall__track', `wall__track--${col.dir}`]} style={`--dur:${col.dur}s`}>
+          {[...col.strips, ...col.strips].map((s) => (
+            <Image src={s} alt="" widths={[154, 308]} sizes="154px" loading="eager" />
+          ))}
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .wall {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    height: 380px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #17191d;
+  }
+  .wall__col {
+    overflow: hidden;
+  }
+  .wall__track {
+    display: flex;
+    flex-direction: column;
+    animation: wall-up var(--dur) linear infinite;
+    will-change: transform;
+  }
+  .wall__track--down {
+    animation-name: wall-down;
+  }
+  .wall__track img {
+    width: 100%;
+    height: auto;
+  }
+  @keyframes wall-up {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-50%);
+    }
+  }
+  @keyframes wall-down {
+    from {
+      transform: translateY(-50%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wall__track {
+      animation: none;
+    }
+  }
+  @media (max-width: 560px) {
+    .wall {
+      height: 300px;
+      gap: 6px;
+    }
+  }
+</style>

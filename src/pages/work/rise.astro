@@ -1,0 +1,134 @@
+---
+import CaseLayout from '../../layouts/CaseLayout.astro';
+import Intro from '../../components/case/Intro.astro';
+import Meta from '../../components/case/Meta.astro';
+import Stats from '../../components/case/Stats.astro';
+import Chapter from '../../components/case/Chapter.astro';
+import Figure from '../../components/case/Figure.astro';
+import Quote from '../../components/case/Quote.astro';
+import Lessons from '../../components/case/Lessons.astro';
+import NextCase from '../../components/case/NextCase.astro';
+import cover from '../../assets/rise/cover.png';
+import payerPayee from '../../assets/rise/payer-payee.png';
+import journey from '../../assets/rise/journey.png';
+import d1 from '../../assets/rise/d1-onboarding.png';
+import d2 from '../../assets/rise/d2-withdraw.png';
+import d3 from '../../assets/rise/d3-rise-id.png';
+import d4 from '../../assets/rise/d4-timesheets.png';
+import bento from '../../assets/rise/system-bento.png';
+---
+
+<CaseLayout
+  title="Making crypto payroll as clear as a bank transfer"
+  description="Rise pays contractors in 190+ countries, in fiat or crypto. I redesigned the product end to end and built the design system engineering ships from."
+>
+  <Intro
+    title="Making crypto payroll as clear as a bank transfer"
+    tags={['Rise, via UX Cabin', 'Web app · Design system', '2023']}
+    lede="Rise pays contractors in 190+ countries, in fiat or crypto, and keeps every payment compliant. The engine worked, but the old interface didn’t explain it. I redesigned the product end to end, from onboarding to timesheets, and built the design system engineering ships from."
+  >
+    <Figure src={cover} alt="The Rise payer dashboard in dark mode: payment totals, action items and a 30-day forecast." eager />
+  </Intro>
+
+  <Meta
+    rows={[
+      ['Role', 'Product designer, end-to-end UI and design system'],
+      ['Company', 'Rise, via UX Cabin'],
+      ['Product', 'Payroll web app for payers and payees'],
+      ['Period', '5 months, 2023'],
+    ]}
+  />
+
+  <Stats
+    items={[
+      ['70', 'screens I designed, in light and dark'],
+      ['8', 'product areas, from onboarding to timesheets'],
+      ['1:1', 'Figma token to Tailwind class'],
+    ]}
+  />
+
+  <Chapter title="Designing for two people at once">
+    <p class="p">
+      Every screen has two readers. The payer is a company funding an account and paying a team. The payee is a
+      contractor who needs to get verified, log time and get the money out. Both share one Rise ID and one dashboard
+      layout, so neither side learns a second product.
+    </p>
+    <Figure
+      src={payerPayee}
+      alt="Payer, the company: funds the account, pays the team in one run, checks costs and timesheets. Payee, the contractor: gets verified, logs time and sends invoices, withdraws to a bank or a wallet. Shared by both: one Rise ID, one dashboard layout, one component set."
+    />
+  </Chapter>
+
+  <Chapter title="How I worked through it">
+    <Figure
+      src={journey}
+      alt="Four steps: Audit, listed what the old app made hard, page by page. Map, rebuilt the structure for payer and payee. Explore, tried several layouts per page before choosing. Systemise, turned what worked into tokens and components."
+    />
+  </Chapter>
+
+  <Chapter title="Four decisions that shaped it" gap={40}>
+    <div class="decision">
+      <h3 class="h3"><span class="h3__n">1</span>Ask about crypto before assuming it</h3>
+      <p class="p">
+        Most contractors have never owned a crypto wallet. Onboarding asks one question first: make it easy for me, give
+        me a new wallet, or I already have one. Beginners get a Rise security key they unlock with a password, and only
+        people who bring their own wallet are asked about networks.
+      </p>
+      <Figure src={d1} alt="Rise onboarding, wallet step, with three choices: make it easy for me, I don’t have a wallet but I want one, and I have a Web3 wallet." />
+    </div>
+    <div class="decision">
+      <h3 class="h3"><span class="h3__n">2</span>Bank or wallet, one withdraw screen</h3>
+      <p class="p">
+        Bank accounts and wallets sit in one list. Pick either and the screen stays the same: amount, both fees and what
+        actually lands, all before Confirm. Only the destination block changes.
+      </p>
+      <Figure
+        src={d2}
+        alt="The withdraw screen with three highlights: 1, pick a destination from bank accounts and wallets in one list; 2, the same every time, amount, both fees and what lands; 3, only this changes, bank details or a wallet address."
+      />
+    </div>
+    <div class="decision">
+      <h3 class="h3"><span class="h3__n">3</span>A Rise ID that shows how far you are</h3>
+      <p class="p">
+        The Rise ID card is the user’s identity and login in one. It moves through five states, from unverified to a
+        verified company with a pay schedule, so people can see what’s left before they can get paid.
+      </p>
+      <Figure src={d3} alt="The Rise ID card in five states: unverified, onboarding, verified, company and pay schedule." />
+    </div>
+    <div class="decision">
+      <h3 class="h3"><span class="h3__n">4</span>Timesheets that show where the time goes</h3>
+      <p class="p">
+        Payers open Timesheets to check hours before they pay. The page reads top to bottom: this month’s totals, how the
+        days compare, then each entry with its status.
+      </p>
+      <Figure
+        src={d4}
+        alt="The Timesheets page with three highlights: 1, totals first, hours, billable, non-billable and uninvoiced above every row; 2, week or month, one switch changes the chart’s range; 3, status on every row, draft and submitted look different at a glance."
+      />
+    </div>
+  </Chapter>
+
+  <Chapter title="A system engineers can build from">
+    <p class="p">
+      Every token is named after the Tailwind class it becomes. An engineer reads primary/600 in Figma and types
+      bg-primary-600 in code, so nobody translates a swatch by hand. Both themes were drawn in full, for every component.
+    </p>
+    <Figure
+      src={bento}
+      alt="Design system overview: one purple in eight steps, Figtree for money, a type anatomy of real Rise cards, token name equals class name, every input and button state, and one dashboard split between light and dark."
+    />
+  </Chapter>
+
+  <Quote quote="“The new design put us up on a pedestal compared to our competitors.”" by="CTO, Rise" />
+
+  <Lessons
+    title="What I carried forward"
+    items={[
+      ['Ask, don’t guess.', 'One question at the start let each person skip the parts of crypto they didn’t need.'],
+      ['Keep money screens identical.', 'When only the destination changes, people check a bank wire and a crypto transfer the same way.'],
+      ['Name tokens the way engineers type them.', 'Nobody had to translate a swatch into a class name, so design and code stayed in step.'],
+    ]}
+  />
+
+  <NextCase current="rise" />
+</CaseLayout>

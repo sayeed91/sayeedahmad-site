@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import Button from './Button.astro';
+import avatar from '../assets/home/avatar.png';
+import { site } from '../data/site';
+---
+
+<header class="inner-header">
+  <a class="identity" href="/" aria-label="Sayeed Ahmad, back to home">
+    <Image src={avatar} alt="" width={40} height={40} class="identity__avatar" />
+    <span class="identity__name">
+      <span class="identity__title">{site.name}</span>
+      <span class="identity__role">{site.role}</span>
+    </span>
+  </a>
+  <div class="inner-header__ctas">
+    <Button variant="ghost" icon="cal" href={site.bookCall} class="inner-header__book">Book a call</Button>
+    <Button action="message">Message me</Button>
+  </div>
+</header>
+
+<style>
+  .inner-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 24px 14px 32px;
+    background: color-mix(in srgb, var(--surface) 86%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  .identity__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+  }
+  .identity__name {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    white-space: nowrap;
+  }
+  .identity__title {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .identity__role {
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--text-secondary);
+  }
+  .inner-header__ctas {
+    display: flex;
+    gap: 10px;
+  }
+  @media (max-width: 640px) {
+    .inner-header {
+      padding: 12px 16px;
+    }
+    .inner-header :global(.inner-header__book) {
+      display: none;
+    }
+  }
+</style>

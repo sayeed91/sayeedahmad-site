@@ -1,0 +1,172 @@
+---
+import CaseLayout from '../../layouts/CaseLayout.astro';
+import Intro from '../../components/case/Intro.astro';
+import Meta from '../../components/case/Meta.astro';
+import Stats from '../../components/case/Stats.astro';
+import Chapter from '../../components/case/Chapter.astro';
+import Figure from '../../components/case/Figure.astro';
+import Lessons from '../../components/case/Lessons.astro';
+import NextCase from '../../components/case/NextCase.astro';
+import DiviWall from '../../components/case/DiviWall.astro';
+import AiSlideshow from '../../components/case/AiSlideshow.astro';
+import packWall from '../../assets/et/pack-wall.png';
+import moduleFlow from '../../assets/et/module-flow.png';
+import testLoop from '../../assets/et/test-loop.png';
+---
+
+<CaseLayout
+  title="Designing Divi layouts for people who aren’t designers"
+  description="Nine years at Elegant Themes: 200+ Divi layout packs, a Figma source of truth for every Divi module, and the templates Divi AI builds pages with."
+>
+  <Intro
+    title="Designing Divi layouts for people who aren’t designers"
+    tags={['Elegant Themes', 'Divi + Divi AI', '2017 – 2026']}
+    lede="For nine years I designed for Divi, a WordPress website builder used by nearly a million web designers and business owners. Most of them are not designers. The work moved in three steps: the layouts people start from, the Figma source of truth those layouts come from, and the templates Divi AI now builds pages with."
+  >
+    <DiviWall />
+  </Intro>
+
+  <Meta
+    rows={[
+      ['Role', 'Product Designer'],
+      ['Company', 'Elegant Themes, remote with a US team'],
+      ['Product', 'Divi visual builder and Divi AI'],
+      ['Period', 'Aug 2017 – Sep 2026'],
+    ]}
+  />
+
+  <aside class="note">
+    <p class="note__title">What I can show</p>
+    <p class="note__text">
+      Elegant Themes keeps its internal files and resources private. Everything on this page is my own design work.
+    </p>
+  </aside>
+
+  <Stats
+    items={[
+      ['200+', 'layout packs I designed and shipped'],
+      ['300+', 'section templates Divi AI builds from'],
+      ['12', 'niches covered, with 40+ categories inside them'],
+    ]}
+  />
+
+  <Chapter title="Layouts for people who aren’t designers">
+    <p class="p">
+      Most of my time at Elegant Themes went into layout packs: a full set of pages for one kind of business that anyone
+      can import into Divi and make their own. I designed more than 200 of them, plus campaign templates for Black
+      Friday and other promotions.
+    </p>
+    <p class="p">
+      The people using them are small business owners and freelancers. They replace every photo and most of the copy, so
+      a pack is a starting point, not a finished site. I designed for the version they would end up with, not the one in
+      the preview.
+    </p>
+    <Figure
+      src={packWall}
+      alt="Twelve of my Divi layout packs, among them a barber shop, an event venue, a bagel shop, an online store, a bike repair shop and a meditation centre. The wall fades out under a pill that reads “Just a handful of them”."
+    />
+    <p class="p">Two rules held for every pack, whoever ended up editing it.</p>
+    <div class="rules">
+      <div class="rule">
+        <p class="rule__title">Readable on any phone</p>
+        <p class="rule__text">Body text never drops below a set minimum size on mobile.</p>
+      </div>
+      <div class="rule">
+        <p class="rule__title">Contrast checked</p>
+        <p class="rule__text">Every layout runs through a contrast check before it ships.</p>
+      </div>
+    </div>
+  </Chapter>
+
+  <Chapter title="One Figma source of truth for every Divi module">
+    <p class="p">
+      Divi’s modules were designed by another team. My job was to rebuild every existing module, and each new one as it
+      came, as a Figma component that matches what the builder can actually produce. Sections, templates and full layouts
+      are then assembled from those components instead of drawn from scratch.
+    </p>
+    <Figure src={moduleFlow} alt="Flow from Divi module to Figma component to section to layout pack." />
+    <p class="p">
+      Matching meant the component carries the same settings as the module, so a designer can’t make something a Divi
+      user can’t rebuild.
+    </p>
+    <p class="p">I also wrote the Divi Build Guidelines, which became part of the internal design system.</p>
+  </Chapter>
+
+  <Chapter title="Getting the templates ready for Divi AI">
+    <p class="p">
+      When Elegant Themes built Divi AI, the section templates it generates pages from came out of this library. I
+      structured them so they could be built back into Divi and extended to new topics without breaking what already
+      worked.
+    </p>
+    <p class="p">I didn’t build the AI or design its interface. I built what it builds from.</p>
+    <p class="p">
+      My part of the testing was simple to describe and slow to do: give the AI real requests and check whether it
+      understood the components and used them the way they were meant to be used.
+    </p>
+    <Figure
+      src={testLoop}
+      alt="Test loop: request, generated page, right components? If not, either fix my side (templates and components) or pass to engineering (prompt and model)."
+    />
+    <AiSlideshow />
+  </Chapter>
+
+  <Lessons
+    title="What I carried forward"
+    items={[
+      ['Design for the person who edits it last.', 'A layout is judged after a non-designer has changed it, not in the preview.'],
+      ['A design only counts if the product can build it.', 'Matching Figma to the builder removed a whole class of “looks right, can’t be made” work.'],
+      ['Generated output is only as good as the system under it.', 'The quality of Divi AI’s pages depends on the templates and components it draws from.'],
+    ]}
+  />
+
+  <NextCase current="elegant-themes" />
+</CaseLayout>
+
+<style>
+  .note {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 18px 20px;
+    border-radius: 12px;
+    background: var(--bg);
+  }
+  .note__title {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .note__text {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-secondary);
+  }
+  .rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .rule {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    border-radius: 12px;
+    background: var(--bg);
+  }
+  .rule__title {
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 500;
+  }
+  .rule__text {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-secondary);
+  }
+  @media (max-width: 560px) {
+    .rules {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

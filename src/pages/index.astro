@@ -1,0 +1,569 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import HomeNav from '../components/HomeNav.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import SheetOverlay from '../components/SheetOverlay.astro';
+import avatar from '../assets/home/avatar.png';
+import { site, cases, experience, recommendations, explorations } from '../data/site';
+
+// A grid of one or two looks unfinished, so the section waits for three.
+const showExplorations = explorations.length >= 3;
+---
+
+<Base
+  title="Sayeed Ahmad · Product Designer"
+  description="Nine years designing Divi layouts for people who aren’t designers, including the templates Divi AI now builds pages with."
+>
+  <HomeNav />
+
+  <main>
+    <div class="column home">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="who">
+          <Image src={avatar} alt="Sayeed Ahmad" width={48} height={48} class="who__avatar" loading="eager" />
+          <div class="who__name">
+            <p class="who__title">{site.name}</p>
+            <p class="who__role">{site.role}</p>
+          </div>
+        </div>
+        <h1 id="hero-title" class="hero__headline">
+          Nine years designing Divi layouts for people who aren’t designers, including the templates Divi AI now builds
+          pages with.
+        </h1>
+        <p class="hero__lede">
+          Remote with US teams since 2016, most of it at Elegant Themes. On contract at UX Cabin, I also worked on Rise and
+          Moen.
+        </p>
+        <div class="hero__actions">
+          <Button action="message">Message me</Button>
+          <Button variant="ghost" icon="cal" href={site.bookCall}>Book a call</Button>
+        </div>
+      </section>
+
+      <section class="experience" aria-labelledby="experience-title">
+        <h2 id="experience-title" class="label">Experience</h2>
+        <div class="experience__list">
+          {
+            experience.map((job) => (
+              <details class="job" open={job.open}>
+                <summary class="job__head">
+                  <span class="job__left">
+                    <span class="job__company">{job.company}</span>
+                    <span class="job__context">{job.context}</span>
+                  </span>
+                  <span class="job__right">
+                    <span class="job__period">{job.period}</span>
+                    <span class="job__chevron">
+                      <Icon name="chevron-down" />
+                    </span>
+                  </span>
+                </summary>
+                <div class="job__body">
+                  <p class="job__role">{job.role}</p>
+                  <p class="job__text">{job.body}</p>
+                </div>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="work" class="work" aria-labelledby="work-title">
+        <h2 id="work-title" class="label">Selected work</h2>
+        <div class="work__cards">
+          {
+            cases.map((c, i) => (
+              <a class="case" href={`/work/${c.slug}`} data-sheet>
+                <div class="case__thumb">
+                  <Image
+                    src={c.thumb}
+                    alt={c.thumbAlt}
+                    widths={[640, 1280]}
+                    sizes="(max-width: 680px) 100vw, 640px"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                  />
+                </div>
+                <div class="case__meta">
+                  <div class="case__row">
+                    <h3 class="case__title">{c.title}</h3>
+                    <span class="case__period">{c.period}</span>
+                  </div>
+                  <p class="case__summary">{c.summary}</p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+
+    {
+      showExplorations && (
+        <section class="explorations" aria-labelledby="explorations-title">
+          <div class="explorations__head">
+            <div>
+              <h2 id="explorations-title" class="label">
+                Explorations
+              </h2>
+              <p class="explorations__lede">
+                Concept work from the last 30 days. Landing pages, app flows and motion I design outside client projects
+                and publish on Dribbble.
+              </p>
+            </div>
+          </div>
+          <div class="explorations__grid">
+            {explorations.map((x) => (
+              <article class="exp">
+                <div class="exp__thumb">
+                  <Image src={x.thumb} alt={`${x.title}, ${x.type.toLowerCase()} concept`} widths={[384, 768]} sizes="384px" />
+                </div>
+                <div class="exp__meta">
+                  <span class="exp__left">
+                    <span class="exp__title">{x.title}</span>
+                    {x.isNew && <span class="exp__new">New</span>}
+                  </span>
+                  <span class="exp__type">{x.type}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div class="explorations__actions">
+            <a class="link-muted" href={site.dribbble} target="_blank" rel="noopener">
+              Follow on Dribbble <Icon name="arrow-up-right" size={14} />
+            </a>
+          </div>
+        </section>
+      )
+    }
+
+    <div class="column home home--tail">
+      <section class="recs" aria-labelledby="recs-title">
+        <h2 id="recs-title" class="label">Recommendations</h2>
+        <div class="recs__list">
+          {
+            recommendations.map((r) => (
+              <figure class="rec">
+                <blockquote class="rec__quote">{r.quote}</blockquote>
+                <figcaption class="rec__who">
+                  <span class="rec__initials" aria-hidden="true">
+                    {r.initials}
+                  </span>
+                  <span>
+                    <span class="rec__name">{r.name}</span>
+                    <span class="rec__title">{r.title}</span>
+                  </span>
+                </figcaption>
+              </figure>
+            ))
+          }
+        </div>
+        <a class="link-muted" href={`${site.linkedin}details/recommendations/`} target="_blank" rel="noopener">
+          All four recommendations on LinkedIn <Icon name="arrow-up-right" size={14} />
+        </a>
+      </section>
+
+      <section class="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title" class="contact__line">Open to remote product design roles, full-time or contract.</h2>
+        <ul class="contact__links">
+          <li><a href={`mailto:${site.email}`}>Email <Icon name="arrow-up-right" size={14} /></a></li>
+          <li><a href={site.linkedin} target="_blank" rel="noopener">LinkedIn <Icon name="arrow-up-right" size={14} /></a></li>
+          <li><a href={site.dribbble} target="_blank" rel="noopener">Dribbble <Icon name="arrow-up-right" size={14} /></a></li>
+          <li><a href={site.resume} target="_blank" rel="noopener">Resume <Icon name="arrow-up-right" size={14} /></a></li>
+        </ul>
+      </section>
+
+      <footer class="footer">
+        <p>© 2026 Sayeed Ahmad</p>
+      </footer>
+    </div>
+  </main>
+  <SheetOverlay />
+</Base>
+
+<style>
+  .home {
+    display: flex;
+    flex-direction: column;
+    gap: 96px;
+    padding-top: 88px;
+  }
+  .home--tail {
+    padding-top: 112px;
+    padding-bottom: 48px;
+  }
+
+  /* Hero */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .who {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .who__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+  }
+  .who__name {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .who__title {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .who__role {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-secondary);
+  }
+  .hero__headline {
+    font-size: 28px;
+    line-height: 38px;
+    font-weight: 400;
+    letter-spacing: -0.56px;
+    text-wrap: pretty;
+  }
+  .hero__lede {
+    color: var(--text-secondary);
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* Experience */
+  .experience {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .experience__list {
+    border-top: 1px solid var(--line);
+  }
+  .job {
+    border-bottom: 1px solid var(--line);
+  }
+  .job__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 0;
+    cursor: pointer;
+    list-style: none;
+  }
+  .job__head::-webkit-details-marker {
+    display: none;
+  }
+  .job__left {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    font-size: 15px;
+    line-height: 22px;
+  }
+  .job__company {
+    font-weight: 500;
+  }
+  .job__context {
+    color: var(--text-secondary);
+  }
+  .job__right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    color: var(--text-tertiary);
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .job__chevron {
+    display: grid;
+    color: var(--text-secondary);
+    transition: transform 200ms ease;
+  }
+  .job[open] .job__chevron {
+    transform: rotate(180deg);
+  }
+  .job__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 22px;
+  }
+  .job__role {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .job__text {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-secondary);
+  }
+
+  /* Selected work */
+  .work {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .work__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+  .case {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .case__thumb {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 640 / 237;
+  }
+  .case__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 300ms ease-out;
+  }
+  .case:hover .case__thumb img {
+    transform: scale(1.02);
+  }
+  .case__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .case__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .case__title {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+  .case__period {
+    flex-shrink: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--text-tertiary);
+  }
+  .case__summary {
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--text-secondary);
+  }
+
+  /* Explorations */
+  .explorations {
+    width: min(1200px, 100% - var(--gutter) * 2);
+    margin: 0 auto;
+    padding-top: 112px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .explorations__lede {
+    max-width: 520px;
+    margin-top: 8px;
+    color: var(--text-secondary);
+  }
+  .explorations__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 36px 24px;
+  }
+  .exp__thumb {
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .exp__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 200ms ease-out;
+  }
+  .exp:hover .exp__thumb img {
+    transform: scale(1.03);
+  }
+  .exp__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+  }
+  .exp__left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .exp__title {
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 500;
+  }
+  .exp__new {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--status-bg);
+    color: var(--status);
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+  }
+  .exp__new::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: currentColor;
+  }
+  .exp__type {
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--text-tertiary);
+  }
+
+  /* Recommendations */
+  .recs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .recs__list {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .rec {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .rec__quote {
+    font-size: 17px;
+    line-height: 28px;
+    letter-spacing: -0.085px;
+  }
+  .rec__who {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .rec__initials {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .rec__name {
+    display: block;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .rec__title {
+    display: block;
+    margin-top: 1px;
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--text-tertiary);
+  }
+  .link-muted {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .link-muted:hover {
+    color: var(--text-primary);
+  }
+
+  /* Contact */
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .contact__line {
+    font-size: 22px;
+    line-height: 32px;
+    font-weight: 400;
+    letter-spacing: -0.33px;
+  }
+  .contact__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+  }
+  .contact__links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 500;
+  }
+  .contact__links a:hover {
+    color: var(--text-secondary);
+  }
+
+  .footer {
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--text-tertiary);
+  }
+
+  @media (max-width: 640px) {
+    .home {
+      gap: 72px;
+      padding-top: 56px;
+    }
+    .home--tail {
+      padding-top: 88px;
+    }
+    .hero__headline {
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: -0.4px;
+    }
+    .case__row {
+      flex-direction: column;
+      gap: 2px;
+    }
+  }
+</style>

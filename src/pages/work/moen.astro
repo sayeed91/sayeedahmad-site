@@ -1,0 +1,147 @@
+---
+import CaseLayout from '../../layouts/CaseLayout.astro';
+import Intro from '../../components/case/Intro.astro';
+import Meta from '../../components/case/Meta.astro';
+import Stats from '../../components/case/Stats.astro';
+import Chapter from '../../components/case/Chapter.astro';
+import Figure from '../../components/case/Figure.astro';
+import Quote from '../../components/case/Quote.astro';
+import Lessons from '../../components/case/Lessons.astro';
+import NextCase from '../../components/case/NextCase.astro';
+import cover from '../../assets/moen/cover.png';
+import beforeAfter from '../../assets/moen/before-after.png';
+import flowMap from '../../assets/moen/flow-map.png';
+import devices from '../../assets/moen/devices.png';
+import screenWall from '../../assets/moen/screen-wall.png';
+import foundations from '../../assets/moen/ds-foundations.png';
+import components from '../../assets/moen/ds-components.png';
+import sourceOfTruth from '../../assets/moen/source-of-truth.png';
+import usability from '../../assets/moen/usability-test.png';
+---
+
+<CaseLayout
+  title="Three apps, six devices, one Moen"
+  description="Moen folded the apps of the companies it bought into one smart-water app. I was on the UX Cabin design system team and owned the source-of-truth file developers built from."
+>
+  <Intro
+    title="Three apps, six devices, one Moen"
+    tags={['Moen, via UX Cabin', 'iOS & Android · Design system', '2023']}
+    lede="Moen moved into the smart home by buying companies, and each one came with its own app. Our team at UX Cabin folded them into one app for six water devices, built on a 400+ component system. I was on the system team: I kept every screen tied to the library and owned the source-of-truth file developers built from."
+  >
+    <Figure src={cover} alt="Screens from the merged Moen app on a slate background: home, water level, sensor trends and a sprinkler zone." eager />
+  </Intro>
+
+  <Meta
+    rows={[
+      ['Role', 'UI/UX designer, design system team'],
+      ['Company', 'Moen, via UX Cabin'],
+      ['Product', 'iOS & Android app, design system'],
+      ['Period', '8 months, 2023'],
+    ]}
+  />
+
+  <Stats
+    items={[
+      ['3 → 1', 'apps merged into one'],
+      ['5', 'water devices on one home screen'],
+      ['400+', 'components in the team’s library'],
+    ]}
+  />
+
+  <Chapter title="One company, three apps">
+    <p class="p">
+      Moen bought two smart-water companies. Each came with its own app, its own navigation and its own idea of what a
+      device was. A faucet, a sprinkler and a shutoff valve still needed their own controls, and a leak, an offline device
+      or a failed pump had to read as urgent on every one of them.
+    </p>
+    <Figure src={beforeAfter} alt="Before: three apps, each with its own navigation. After: one app, one home screen for every device." />
+  </Chapter>
+
+  <Chapter title="Mapping what already existed">
+    <p class="p">
+      We put the old Sketch and Figma files on one board and mapped every screen to its flow. That map became the new
+      information architecture.
+    </p>
+    <Figure
+      src={flowMap}
+      alt="One of many flows on the board, from the old sprinkler app: Home leads to Update Schedule (edit schedule on touch), which leads to Advanced; a long press on a zone opens Run time."
+    />
+  </Chapter>
+
+  <Chapter title="Every device, one home screen">
+    <p class="p">Every device opens from the same home screen and uses the same card, tabs and alert pattern.</p>
+    <Figure
+      src={devices}
+      alt="The home screen’s devices row connects to five devices, each listing the components it reuses: sprinkler controller, sump pump monitor, leak detector, Flo Shutoff and kitchen faucet."
+    />
+  </Chapter>
+
+  <Chapter title="Screens from the whole app">
+    <p class="p">
+      Alerts, sprinkler zones, settings and device detail. Different products, built from the same cards, sheets and
+      type.
+    </p>
+    <Figure src={screenWall} alt="A wall of Moen app screens: zones, Flo Shutoff, device detail, smart leak detector, alerts and sprinkler controller." />
+  </Chapter>
+
+  <Chapter title="The system underneath">
+    <p class="p">
+      Atomic Design, built by the UX Cabin system team. I was on that team: I made sure every component the screens
+      needed existed, and that every screen used them correctly.
+    </p>
+    <Figure
+      src={foundations}
+      alt="Foundations: eight colours and a nine-step grey ramp; an 8px grid annotated on the home screen with its exceptions; ten type styles on one scale; one icon set; every glyph fits a 16px box inside a 24px container."
+    />
+  </Chapter>
+
+  <Chapter title="Every component, every state">
+    <p class="p">
+      Each module was documented with its states and a rule for when to use it, so screens were checked against the
+      library, not against each other.
+    </p>
+    <Figure
+      src={components}
+      alt="Components: primary and secondary buttons in four states; one device card for every device, with photo, title, status icons and actions; three levels of alert urgency."
+    />
+  </Chapter>
+
+  <Chapter title="One source of truth">
+    <p class="p">
+      Four designers, six products, one Figma file. This part was mine: screens attached to the library, missing
+      components added, every flow annotated and linked before handoff.
+    </p>
+    <Figure
+      src={sourceOfTruth}
+      alt="The source-of-truth Figma file in Dev Mode: every screen built from library instances, missing components raised and added, annotated and linked before handoff."
+    />
+  </Chapter>
+
+  <Chapter title="Tested before it shipped">
+    <p class="p">
+      Complex flows, like setting a watering schedule, went through remote usability tests. Ratings, click paths and
+      written answers went back into the designs.
+    </p>
+    <Figure
+      src={usability}
+      alt="Usability test of the watering schedule: 4 remote testers, 3:04 average time on task, none rated it difficult. One written answer: “We run ours in the early morning, around 5:30, before it can be too warm and any of it could evaporate.”"
+    />
+  </Chapter>
+
+  <Quote
+    quote="“We stood up a fully functional design system in a couple of months. Because of that we were able to get products out the door, period. Incredible ROI for us.”"
+    by="Brian Colby, Principal UX Design, Moen"
+  />
+
+  <Lessons
+    title="What it added up to"
+    lede="Agency work at UX Cabin, alongside Moen’s in-house team. My part was system coverage, the source-of-truth file and the handoff."
+    items={[
+      ['Platform', 'Three apps shipped as one, with one navigation for every water device.'],
+      ['The system', '400+ components, and every screen in the source file built from them.'],
+      ['Handoff', 'Developers built from one file, with every flow annotated and linked to its prototype.'],
+    ]}
+  />
+
+  <NextCase current="moen" />
+</CaseLayout>

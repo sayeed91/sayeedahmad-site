@@ -1,0 +1,60 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  variant?: 'primary' | 'ghost';
+  href?: string;
+  icon?: 'cal';
+  action?: 'message';
+  class?: string;
+}
+const { variant = 'primary', href, icon, action, class: className } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['btn', `btn--${variant}`, icon && 'btn--icon', className]}
+  href={href}
+  type={href ? undefined : 'button'}
+  data-action={action}
+  aria-haspopup={action === 'message' ? 'dialog' : undefined}
+>
+  {icon && <Icon name={icon} />}
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease;
+  }
+  .btn--primary {
+    background: var(--text-primary);
+    color: var(--on-primary);
+  }
+  .btn--primary:hover {
+    background: #262a33;
+  }
+  .btn--ghost {
+    background: transparent;
+    border-color: var(--line);
+    color: var(--text-primary);
+    padding: 9px 18px 9px 16px;
+  }
+  .btn--ghost:hover {
+    background: var(--surface);
+    border-color: #cfd3da;
+  }
+</style>

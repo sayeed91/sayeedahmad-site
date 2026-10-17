@@ -1,0 +1,206 @@
+---
+// Desktop only: case studies open as a routed bottom sheet over the home page.
+// The URL changes, so links can be shared; Esc, the close button, the scrim and
+// Back all close it and leave the home page where it was. Small screens and
+// modified clicks fall through to the real page.
+---
+
+<dialog id="sheet" class="sheet" aria-label="Case study">
+  <button type="button" class="sheet__close" data-sheet-close aria-label="Close case study">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"></path></svg>
+  </button>
+  <div class="sheet__panel" data-sheet-panel></div>
+</dialog>
+
+<style>
+  .sheet {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: hidden;
+  }
+  .sheet::backdrop {
+    background: rgba(11, 13, 18, 0.5);
+  }
+  .sheet[open] .sheet__panel {
+    animation: sheet-up 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .sheet[open]::backdrop {
+    animation: fade 240ms ease;
+  }
+  .sheet__panel {
+    position: absolute;
+    inset: 48px 0 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: 20px 20px 0 0;
+    background: var(--surface);
+  }
+  .sheet__close {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+  .sheet__close:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  @keyframes sheet-up {
+    from {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  const dialog = document.getElementById('sheet') as HTMLDialogElement;
+  const panel = dialog.querySelector('[data-sheet-panel]') as HTMLElement;
+  const wide = matchMedia('(min-width: 900px)');
+  const homeTitle = document.title;
+  const homeUrl = location.pathname + location.search;
+  const cache = new Map<string, Promise<Document>>();
+
+  const load = (url: string) => {
+    if (!cache.has(url)) {
+      cache.set(
+        url,
+        fetch(url)
+          .then((r) => {
+            if (!r.ok) throw new Error(String(r.status));
+            return r.text();
+          })
+          .then((html) => new DOMParser().parseFromString(html, 'text/html')),
+      );
+    }
+    return cache.get(url)!;
+  };
+
+  // The case page's CSS and scripts are bundled for that page, so bring over
+  // whatever the home page doesn't have yet.
+  const adoptAssets = (doc: Document) => {
+    doc.head.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]').forEach((link) => {
+      if (!document.head.querySelector(`link[href="${link.getAttribute('href')}"]`)) {
+        document.head.append(link.cloneNode());
+      }
+    });
+    doc.head.querySelectorAll('style').forEach((style) => {
+      const key = style.textContent?.slice(0, 200) ?? '';
+      const exists = Array.from(document.head.querySelectorAll('style')).some((s) => s.textContent?.slice(0, 200) === key);
+      if (!exists) document.head.append(style.cloneNode(true));
+    });
+    doc.querySelectorAll<HTMLScriptElement>('script[type="module"]').forEach((script) => {
+      const src = script.getAttribute('src');
+      if (src && !document.querySelector(`script[src="${src}"]`)) {
+        const s = document.createElement('script');
+        s.type = 'module';
+        s.src = src;
+        document.head.append(s);
+      } else if (!src && script.textContent && !script.closest('#sheet')) {
+        const key = script.textContent.slice(0, 200);
+        const exists = Array.from(document.querySelectorAll('script[type="module"]')).some((s) => s.textContent?.slice(0, 200) === key);
+        if (!exists) {
+          const s = document.createElement('script');
+          s.type = 'module';
+          s.textContent = script.textContent;
+          document.head.append(s);
+        }
+      }
+    });
+  };
+
+  const show = async (url: string) => {
+    const doc = await load(url);
+    const header = doc.querySelector('.inner-header');
+    const body = doc.querySelector('[data-sheet-body]');
+    if (!body) {
+      location.href = url;
+      return;
+    }
+    adoptAssets(doc);
+    panel.replaceChildren(...[header, body].filter(Boolean).map((n) => document.importNode(n!, true)));
+    panel.scrollTop = 0;
+    document.title = doc.title;
+    if (!dialog.open) {
+      dialog.showModal();
+      document.documentElement.style.overflow = 'hidden';
+    }
+    panel.focus({ preventScroll: true });
+  };
+
+  const hide = () => {
+    if (!dialog.open) return;
+    dialog.close();
+    document.documentElement.style.overflow = '';
+    document.title = homeTitle;
+  };
+
+  const close = () => {
+    if (history.state?.sheet) history.back();
+    else hide();
+  };
+
+  document.addEventListener('click', (e) => {
+    // Inside the sheet, the header's "back to home" link just closes it.
+    const home = (e.target as HTMLElement).closest<HTMLAnchorElement>('#sheet a[href="/"]');
+    if (home) {
+      e.preventDefault();
+      close();
+      return;
+    }
+    const link = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-sheet]');
+    if (!link || !wide.matches) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
+    const url = link.getAttribute('href')!;
+    // Next/previous inside the sheet replace the entry, so Back still closes.
+    if (dialog.open) history.replaceState({ sheet: url }, '', url);
+    else history.pushState({ sheet: url }, '', url);
+    show(url).catch(() => (location.href = url));
+  });
+
+  // Warm the cache on hover so the sheet opens without a wait.
+  document.addEventListener('pointerover', (e) => {
+    const link = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-sheet]');
+    if (link && wide.matches) load(link.getAttribute('href')!).catch(() => {});
+  });
+
+  window.addEventListener('popstate', () => {
+    if (history.state?.sheet) show(history.state.sheet);
+    else hide();
+  });
+
+  dialog.addEventListener('cancel', (e) => {
+    e.preventDefault();
+    close();
+  });
+  dialog.querySelector('[data-sheet-close]')!.addEventListener('click', close);
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) close();
+  });
+
+  // If the sheet was left open on the home URL (e.g. after a resize), tidy up.
+  if (location.pathname + location.search !== homeUrl) hide();
+  panel.tabIndex = -1;
+</script>

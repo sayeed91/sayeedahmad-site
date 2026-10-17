@@ -1,0 +1,40 @@
+---
+// Paths copied from the Figma icon frames (16px grid; arrow-up-right is 14px).
+interface Props {
+  name: 'cal' | 'chevron-down' | 'arrow-right' | 'arrow-left' | 'arrow-up-right' | 'x';
+  size?: number;
+}
+const { name, size = 16 } = Astro.props;
+
+const icons: Record<Props['name'], { box: number; d: string[] }> = {
+  cal: {
+    box: 16,
+    d: [
+      'M5.33333 1.33333V4',
+      'M10.6667 1.33333V4',
+      'M3.33333 2.66667H12.6667C13.403 2.66667 14 3.26362 14 4V13.3333C14 14.0697 13.403 14.6667 12.6667 14.6667H3.33333C2.59695 14.6667 2 14.0697 2 13.3333V4C2 3.26362 2.59695 2.66667 3.33333 2.66667Z',
+      'M2 6.66667H14',
+    ],
+  },
+  'chevron-down': { box: 16, d: ['M4 6L8 10L12 6'] },
+  'arrow-right': { box: 16, d: ['M3.33333 8H12.6667', 'M8 3.33333L12.6667 8L8 12.6667'] },
+  'arrow-left': { box: 16, d: ['M12.6667 8H3.33333', 'M8 12.6667L3.33333 8L8 3.33333'] },
+  'arrow-up-right': { box: 14, d: ['M4.08333 4.08333H9.91667V9.91667', 'M4.08333 9.91667L9.91667 4.08333'] },
+  x: { box: 20, d: ['M5 5L15 15', 'M15 5L5 15'] },
+};
+const icon = icons[name];
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox={`0 0 ${icon.box} ${icon.box}`}
+  fill="none"
+  stroke="currentColor"
+  stroke-width={name === 'arrow-up-right' ? 1.16667 : name === 'x' ? 1.6 : 1.33333}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  {icon.d.map((d) => <path d={d} />)}
+</svg>

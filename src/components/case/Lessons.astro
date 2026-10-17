@@ -1,0 +1,65 @@
+---
+interface Props {
+  title: string;
+  lede?: string;
+  items: [string, string][];
+}
+const { title, lede, items } = Astro.props;
+---
+
+<section class="lessons">
+  <h2 class="h2">{title}</h2>
+  {lede && <p class="p lessons__lede">{lede}</p>}
+  <ol class="lessons__list">
+    {
+      items.map(([t, b], i) => (
+        <li class="lesson">
+          <span class="lesson__n">{i + 1}</span>
+          <span class="lesson__text">
+            <span class="lesson__title">{t}</span>
+            <span class="lesson__body">{b}</span>
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .lessons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .lessons__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .lesson {
+    display: flex;
+    gap: 16px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: var(--bg);
+    font-size: 15px;
+    line-height: 24px;
+  }
+  .lesson__n {
+    width: 10px;
+    flex-shrink: 0;
+    font-weight: 500;
+    color: var(--text-tertiary);
+  }
+  .lesson__text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .lesson__title {
+    font-weight: 500;
+  }
+  .lesson__body {
+    color: var(--text-secondary);
+  }
+</style>

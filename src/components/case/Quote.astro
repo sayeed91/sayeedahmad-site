@@ -1,0 +1,42 @@
+---
+interface Props {
+  quote: string;
+  by: string;
+}
+const { quote, by } = Astro.props;
+---
+
+<figure class="quote">
+  <blockquote class="quote__text">{quote}</blockquote>
+  <figcaption class="quote__by">{by}</figcaption>
+</figure>
+
+<style>
+  .quote {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px;
+    border-radius: 12px;
+    background: var(--bg);
+  }
+  .quote__text {
+    font-size: 22px;
+    line-height: 32px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .quote__by {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  @media (max-width: 560px) {
+    .quote {
+      padding: 22px;
+    }
+    .quote__text {
+      font-size: 19px;
+      line-height: 28px;
+    }
+  }
+</style>

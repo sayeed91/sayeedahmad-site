@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  gap?: number;
+}
+const { title, gap = 20 } = Astro.props;
+---
+
+<section class="chapter" style={`--gap:${gap}px`}>
+  <h2 class="h2">{title}</h2>
+  <slot />
+</section>
+
+<style is:global>
+  .chapter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap, 20px);
+  }
+  .h2 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+    letter-spacing: -0.36px;
+  }
+  .p {
+    color: var(--text-secondary);
+  }
+  .decision {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .h3 {
+    display: flex;
+    gap: 10px;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 500;
+  }
+  .h3__n {
+    color: var(--text-tertiary);
+  }
+</style>
