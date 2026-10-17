@@ -82,7 +82,7 @@ export const experience = [
   {
     company: 'Elegant Themes',
     context: 'Divi and Divi AI',
-    period: '2017 – Now',
+    period: '2017 – 2026',
     role: 'Product Designer · Remote',
     body: 'I designed 200+ layout packs and campaign templates, rebuilt every Divi module as a Figma component so sections and layouts come from one source, and wrote the Divi Build Guidelines. Those templates are what Divi AI builds pages from.',
     open: true,
