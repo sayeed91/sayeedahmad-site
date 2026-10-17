@@ -116,7 +116,7 @@ const allExplorationsHref = '#';
       </div>
       <div class="explorations__grid">
         {
-          explorations.map((x) => {
+          explorations.slice(0, 6).map((x) => {
             const Tile = x.slug ? 'a' : 'article';
             const link = x.slug ? { href: `/explorations/${x.slug}`, 'data-sheet': '' } : {};
             return (

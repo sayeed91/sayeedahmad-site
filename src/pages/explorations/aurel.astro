@@ -1,0 +1,91 @@
+---
+import CaseLayout from '../../layouts/CaseLayout.astro';
+import Intro from '../../components/case/Intro.astro';
+import Chapter from '../../components/case/Chapter.astro';
+import Figure from '../../components/case/Figure.astro';
+import LoopVideo from '../../components/LoopVideo.astro';
+import ExplorationFooter from '../../components/case/ExplorationFooter.astro';
+import poster from '../../assets/explorations/aurel/poster.png';
+import video from '../../assets/explorations/aurel/video-1280.mp4';
+import devices from '../../assets/explorations/aurel/01-shot-03.png';
+import phone from '../../assets/explorations/aurel/02-shot-05.png';
+import scents from '../../assets/explorations/aurel/03-shot-02.png';
+import fullPage from '../../assets/explorations/aurel/04-full-page.png';
+
+// Copy and shots come from Figma node 353:7023 "Sheet — Aurel (full scroll)".
+// Shots are exported at 3x (1920 wide); the hero is a 1280 × 960 video.
+---
+
+<CaseLayout
+  title="Aurel"
+  description="Aurel is a concept perfume house with three scents, each named after an hour of the same evening. I designed the landing page and an animated scroll prototype for it."
+>
+  <Intro
+    title="Aurel — Perfume Brand Landing-page"
+    size="sm"
+    tags={['Landing page', 'Desktop + mobile', 'Oct 2026']}
+    lede="Aurel is a concept perfume house with three scents, each named after an hour of the same evening: 17:20 Low Sun, 18:42 Last Light and 21:05 After Dark. I designed the landing page and an animated scroll prototype for it, in desktop and mobile."
+  >
+    <LoopVideo
+      src={video}
+      poster={poster}
+      label="A scroll through the Aurel landing page on desktop and mobile."
+      width={1280}
+      height={960}
+      class="hero-video"
+    />
+  </Intro>
+
+  <Chapter title="Challenge">
+    <p class="p">
+      Perfume is hard to sell on a screen, because you can't smell it. Most perfume sites answer that with a dark page
+      and a product grid, and the bottles end up looking the same.
+    </p>
+    <p class="p">
+      The challenge here was to make three perfumes feel different without changing the layout, and to keep the page
+      bright and warm while it still feels expensive.
+    </p>
+  </Chapter>
+
+  <Figure src={devices} alt="The Aurel hero on desktop and mobile: the 18:42 bottle in front of the brand name, with the line Stay for the last light." />
+
+  <Chapter title="Solution" gap={20}>
+    <p class="p">
+      The page tells one story: an evening. It starts in pale cream and ends in deep red, on a single gradient, so there
+      is no line between two sections.
+    </p>
+    <ul class="list p">
+      <li>Each perfume gets one full screen. The bottle stays on the centre line and only the liquid changes colour.</li>
+      <li>The time sits behind the bottle at 400 px, the same way the brand name sits behind it in the hero.</li>
+      <li>Ingredients float beside the bottle as cut-outs, with no box around them.</li>
+      <li>Text always sits in the bottom corners, 64 px from the edge.</li>
+      <li>The sun drops a little lower in every section. By the footer it is half set behind a calm sea.</li>
+    </ul>
+  </Chapter>
+
+  <div class="shots">
+    <Figure src={phone} alt="The Aurel mobile hero on a phone held in a hand against a black background." />
+    <Figure src={scents} alt="The three Aurel perfumes side by side: 17:20 Low Sun, 18:42 Last Light and 21:05 After Dark." />
+    <Figure src={fullPage} alt="The full Aurel landing page, going from pale cream at the top to deep red at the footer." />
+  </div>
+
+  <ExplorationFooter current="aurel" />
+</CaseLayout>
+
+<style>
+  .shots {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  :global(.hero-video) {
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .list {
+    margin-top: 6px;
+    padding-left: 24px;
+    list-style: disc;
+  }
+</style>

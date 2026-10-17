@@ -9,14 +9,14 @@ import poster from '../../assets/explorations/halden/poster.png';
 import video from '../../assets/explorations/halden/video-1280.mp4';
 import overview from '../../assets/explorations/halden/01-overview.png';
 import mobileWall from '../../assets/explorations/halden/02-mobile-wall.png';
-import heroDevices from '../../assets/explorations/halden/03-hero-devices.png';
-import collection from '../../assets/explorations/halden/04-collection.png';
+import typeSheet from '../../assets/explorations/halden/03-shot-05.png';
+import product from '../../assets/explorations/halden/04-product.png';
 import woods from '../../assets/explorations/halden/05-woods.png';
-import mobileScreens from '../../assets/explorations/halden/06-mobile-screens.png';
-import product from '../../assets/explorations/halden/07-product.png';
+import fullPage from '../../assets/explorations/halden/06-full-page.png';
 
 // Copy and shots come from Figma node 192:7481 "Sheet — Halden (full scroll)".
-// Shots are exported at 3x (1920 × 1440); the hero is a 1280 × 960 video.
+// Shots are exported at 3x (1920 wide); the hero is a 1280 × 960 video,
+// sped up 20% from his export.
 ---
 
 <CaseLayout
@@ -24,7 +24,8 @@ import product from '../../assets/explorations/halden/07-product.png';
   description="A landing page for a made-to-order furniture studio in the Hudson Valley. Concept work for an invented brand."
 >
   <Intro
-    title="Halden"
+    title="Halden — Furniture Brand Landing-page"
+    size="sm"
     tags={['Landing page', 'Desktop + mobile', 'Oct 2026']}
     lede="A landing page for a made-to-order furniture studio in the Hudson Valley. Concept work for an invented brand: I wanted the photography to carry the page, so the type stays quiet and a line only appears where two things meet."
   >
@@ -87,11 +88,10 @@ import product from '../../assets/explorations/halden/07-product.png';
   </Chapter>
 
   <div class="shots">
-    <Figure src={heroDevices} alt="The Halden hero on a desktop screen with the mobile hero beside it, over a room photo." />
-    <Figure src={collection} alt="The collection section: a list of piece names with the photo of the hovered piece on the right." />
-    <Figure src={woods} alt="The wood and finish swatches: paper, bone, walnut, olive, espresso and ink, next to a black walnut close-up." />
-    <Figure src={mobileScreens} alt="Halden mobile screens: the hero, the Hale chair page with its configure button, and the menu." />
+    <Figure src={typeSheet} alt="Halden type: Cormorant Garamond for names and statements, Hanken Grotesk for the interface, shown over the section headings." />
     <Figure src={product} alt="The Hale lounge chair page with detail photos of the wood and upholstery below it." />
+    <Figure src={woods} alt="The wood and finish swatches: paper, bone, walnut, olive, espresso and ink, next to a black walnut close-up." />
+    <Figure src={fullPage} alt="The full Halden landing page from the hero to the footer." />
   </div>
 
   <ExplorationFooter current="halden" />

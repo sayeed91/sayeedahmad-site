@@ -3,6 +3,8 @@ import riseThumb from '../assets/home/case-rise.png';
 import moenThumb from '../assets/home/case-moen.png';
 import haldenPoster from '../assets/explorations/halden/poster.png';
 import haldenVideo from '../assets/explorations/halden/video-960.mp4';
+import aurelPoster from '../assets/explorations/aurel/poster.png';
+import aurelVideo from '../assets/explorations/aurel/video-960.mp4';
 import type { ImageMetadata } from 'astro';
 
 export const site = {
@@ -72,6 +74,8 @@ export const nextCase = (slug: CaseSlug) => {
 // `video` is a 960×720 muted loop for the tile; `thumb` is then its first
 // frame and doubles as the poster. `slug` means a detail page exists at
 // /explorations/<slug>.
+// The home grid shows the first six (two rows of three); the rest stay in the
+// list for prev/next and "More explorations".
 type Exploration = {
   title: string;
   type: string;
@@ -82,6 +86,7 @@ type Exploration = {
 };
 export const explorations: Exploration[] = [
   { title: 'Halden', type: 'Landing page', isNew: true, thumb: haldenPoster, video: haldenVideo, slug: 'halden' },
+  { title: 'Aurel', type: 'Landing page', thumb: aurelPoster, video: aurelVideo, slug: 'aurel' },
   { title: 'Lintel', type: 'Mobile app', isNew: true },
   { title: 'Saffra checkout', type: 'Mobile app' },
   { title: 'NOMA sales dashboard', type: 'Web app' },
