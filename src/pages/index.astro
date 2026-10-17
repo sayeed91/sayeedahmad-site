@@ -23,7 +23,7 @@ const allExplorationsHref = '#';
     <div class="column home">
       <section class="hero" aria-labelledby="hero-title">
         <div class="who">
-          <Image src={avatar} alt="Sayeed Ahmad" width={48} height={48} class="who__avatar" loading="eager" />
+          <Image src={avatar} alt="Sayeed Ahmad" width={48} height={48} densities={[1, 2, 3, 4]} class="who__avatar" loading="eager" />
           <div class="who__name">
             <p class="who__title">{site.name}</p>
             <p class="who__role">{site.role}</p>
@@ -81,7 +81,7 @@ const allExplorationsHref = '#';
                   <Image
                     src={c.thumb}
                     alt={c.thumbAlt}
-                    widths={[640, 1280]}
+                    widths={[640, 1280, 1920]}
                     sizes="(max-width: 680px) 100vw, 640px"
                     loading={i === 0 ? 'eager' : 'lazy'}
                   />
@@ -122,7 +122,7 @@ const allExplorationsHref = '#';
                   <Image
                     src={x.thumb}
                     alt={`${x.title}, ${x.type.toLowerCase()} concept`}
-                    widths={[384, 768]}
+                    widths={[384, 768, 1152]}
                     sizes="(max-width: 680px) calc(100vw - 40px), 384px"
                   />
                 )}

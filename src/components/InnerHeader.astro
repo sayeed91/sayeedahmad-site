@@ -7,7 +7,7 @@ import { site } from '../data/site';
 
 <header class="inner-header">
   <a class="identity" href="/" aria-label="Sayeed Ahmad, back to home">
-    <Image src={avatar} alt="" width={40} height={40} class="identity__avatar" />
+    <Image src={avatar} alt="" width={40} height={40} densities={[1, 2, 3, 4]} class="identity__avatar" />
     <span class="identity__name">
       <span class="identity__title">{site.name}</span>
       <span class="identity__role">{site.role}</span>

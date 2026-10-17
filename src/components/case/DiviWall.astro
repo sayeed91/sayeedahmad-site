@@ -26,7 +26,7 @@ const columns = [
       <div class="wall__col">
         <div class:list={['wall__track', `wall__track--${col.dir}`]} style={`--dur:${col.dur}s`}>
           {[...col.strips, ...col.strips].map((s) => (
-            <Image src={s} alt="" widths={[154, 308]} sizes="154px" loading="eager" />
+            <Image src={s} alt="" widths={[154, 308, 454]} sizes="154px" loading="eager" />
           ))}
         </div>
       </div>

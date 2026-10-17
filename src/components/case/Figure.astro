@@ -16,7 +16,7 @@ const { src, alt, eager = false } = Astro.props;
   <Image
     src={src}
     alt={alt}
-    widths={[640, 960, 1280]}
+    widths={[640, 960, 1280, 1920]}
     sizes="(max-width: 680px) calc(100vw - 40px), 640px"
     loading={eager ? 'eager' : 'lazy'}
     format="webp"

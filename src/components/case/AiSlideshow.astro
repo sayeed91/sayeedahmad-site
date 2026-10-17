@@ -19,7 +19,7 @@ const slides = [
     {
       slides.map((s, i) => (
         <div class:list={['ai__slide', i === 0 && 'is-active']} data-prompt={s.prompt}>
-          <Image src={s.src} alt={s.alt} widths={[608, 1216]} sizes="(max-width: 680px) calc(100vw - 72px), 608px" />
+          <Image src={s.src} alt={s.alt} widths={[608, 1216, 1824]} sizes="(max-width: 680px) calc(100vw - 72px), 608px" />
         </div>
       ))
     }
