@@ -1,0 +1,13 @@
+# Old hand-coded site URLs, so links already shared keep working.
+/index.html                      /                       301
+/case-study-divi-ai.html         /work/elegant-themes    301
+/case-study-divi-ai              /work/elegant-themes    301
+/case-study-rise.html            /work/rise              301
+/case-study-rise                 /work/rise              301
+/case-study-moen.html            /work/moen              301
+/case-study-moen                 /work/moen              301
+/case-study-cybotics.html        /                       301
+/case-study-ventaro.html         /                       301
+/case-study-oj-exclusive.html    /                       301
+/case-study-template.html        /                       301
+/assets/sayeed-ahmad-resume.pdf  /sayeed-ahmad-resume.pdf 301
