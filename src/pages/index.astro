@@ -9,9 +9,6 @@ import avatar from '../assets/home/avatar.png';
 import { site, cases, experience, recommendations } from '../data/site';
 import { getExplorations } from '../data/explorations';
 
-// "View all explorations" has no page yet; it becomes a real link once that
-// page is designed.
-const allExplorationsHref = '#';
 // The grid shows the first six (two rows of three).
 const explorations = (await getExplorations()).slice(0, 6);
 ---
@@ -112,9 +109,6 @@ const explorations = (await getExplorations()).slice(0, 6);
             publish on Dribbble.
           </p>
         </div>
-        <a class="link-strong explorations__all" href={allExplorationsHref}>
-          View all explorations <Icon name="arrow-right" />
-        </a>
       </div>
       <div class="explorations__grid">
         {
@@ -146,9 +140,6 @@ const explorations = (await getExplorations()).slice(0, 6);
         }
       </div>
       <div class="explorations__actions">
-        <a class="btn-outline" href={allExplorationsHref}>
-          View all explorations <Icon name="arrow-right" />
-        </a>
         <a class="link-muted" href={site.dribbble} target="_blank" rel="noopener">
           Follow on Dribbble <Icon name="arrow-up-right" size={14} />
         </a>
@@ -463,9 +454,6 @@ const explorations = (await getExplorations()).slice(0, 6);
     .explorations__grid {
       grid-template-columns: 1fr;
       gap: 28px;
-    }
-    .explorations__all {
-      display: none;
     }
   }
   .exp {

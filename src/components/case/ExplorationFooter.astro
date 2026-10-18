@@ -10,8 +10,6 @@ interface Props {
 }
 const { prev, next, more } = await explorationNeighbours(Astro.props.current);
 const href = (x: Exploration) => (x.hasPage ? `/explorations/${x.slug}` : undefined);
-// "View all explorations" has no page yet, same as on the home page.
-const allExplorationsHref = '#';
 ---
 
 <nav class="pn" aria-label="Explorations">
@@ -38,7 +36,6 @@ const allExplorationsHref = '#';
 <section class="more" aria-labelledby="more-title">
   <div class="more__head">
     <h2 id="more-title" class="more__title">More explorations</h2>
-    <a class="more__all" href={allExplorationsHref}>View all explorations <Icon name="arrow-right" /></a>
   </div>
   <div class="more__cards">
     {
@@ -120,17 +117,6 @@ const allExplorationsHref = '#';
     line-height: 20px;
     font-weight: 500;
     color: var(--text-tertiary);
-  }
-  .more__all {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 500;
-  }
-  .more__all:hover {
-    color: var(--text-secondary);
   }
   .more__cards {
     display: grid;
