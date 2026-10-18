@@ -1,4 +1,56 @@
 name: Romp pet care
-order: 7
+order: 4
 type: Landing page
 isNew: false
+video: ../../assets/explorations/romp-pet-care/video.mp4
+videoSpeed: 1
+pageTitle: Romp
+tags:
+- Landing page
+- Desktop + mobile
+- Oct 2026
+lede: Romp is a concept pet care brand for dogs and cats, with food, grooming, walks and vet care in one place. I designed
+  the landing page for desktop, an adaptive mobile version and an animated scroll prototype.
+videoAlt: A scroll through the Romp landing page on desktop and mobile.
+sections:
+- discriminant: text
+  value:
+    heading: Challenge
+    body: |-
+      Most pet care sites I looked at felt the same. Soft beige, a cartoon bone, a dog asleep on a sofa. Pleasant enough, and forgotten as soon as the tab closed.
+
+      A pet owner comes to a site like this for three things. To feed the dog, to book someone to look after it, and to decide whether they can trust the shop. The challenge was to answer all three on one page and still leave a brand people remember.
+- discriminant: image
+  value:
+    image: ../../assets/explorations/romp-pet-care/01-brand-system.png
+    alt: The Romp brand system with the logo, type, colours, paw prints and loops.
+- discriminant: text
+  value:
+    heading: Solution
+    body: |-
+      Every section answers one of those three jobs. The brand comes from three shapes a pet brand can own, paw prints, wavy edges and loops like a leash.
+
+      - In the hero the dog runs through the headline. His head sits in front of the type, and a yellow loop behind him reads like a leash he just slipped.
+      - Shop the drop is the solid button because most people come to buy. Book a walk sits next to it as the quieter choice.
+      - Puppy, Cats, Groom and Play each sit on their own colour, so you find your pet before you read a word.
+      - Daily Bowl asks one question, how big is your dog, and the price changes as soon as you pick a size.
+      - Care sits on a dark section, so the page clearly moves from shopping to service. A live walk on the left shows where the dog is right now.
+      - Reviews are signed with the pet’s name and tilted a little, like photos on a fridge.
+      - A few big paws instead of many small ones. Lots of tiny paws looked like wallpaper.
+      - Mobile is adaptive, not a shrunk desktop. Buttons sit in the thumb zone, the tiles become a swipe carousel and Care becomes an accordion.
+- discriminant: image
+  value:
+    image: ../../assets/explorations/romp-pet-care/02-mobile-adaptive.png
+    alt: Three Romp mobile screens, Daily Bowl, the hero and the Club.
+- discriminant: image
+  value:
+    image: ../../assets/explorations/romp-pet-care/03-tilted-page.png
+    alt: The Romp landing page tilted on a lavender background.
+- discriminant: image
+  value:
+    image: ../../assets/explorations/romp-pet-care/04-section-cuts.png
+    alt: Close-ups of Romp sections, the Daily Bowl plan, Care and reviews.
+- discriminant: image
+  value:
+    image: ../../assets/explorations/romp-pet-care/05-full-page.png
+    alt: The full Romp landing page, from the hero to the footer wordmark.

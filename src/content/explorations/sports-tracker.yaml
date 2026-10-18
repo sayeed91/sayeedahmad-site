@@ -1,0 +1,34 @@
+name: Sports tracker
+order: 6
+type: Mobile app
+isNew: false
+thumbnail: ../../assets/explorations/sports-tracker/00-cover.png
+pageTitle: Sports tracker
+tags:
+- Mobile app
+- Visual concept
+lede: A visual concept for a running and cycling tracker, made as a fun side exploration. Three screens, a training schedule,
+  a home dashboard and a live run on the map.
+videoAlt: Three sports tracker screens, the schedule, the home dashboard and a live run on the map.
+sections:
+- discriminant: text
+  value:
+    heading: Visual concept
+    body: |-
+      Most of the app is quiet. Soft grey surfaces, white cards and light type, so the numbers carry each screen. Average speed, steps, calories and the live timer are always the biggest things you see.
+
+      Colour has only two jobs. A blue to violet gradient with a little grain marks the one card that matters most, the weekly speed chart. Lime marks what is happening now, today’s sessions in the calendar, the selected day on the chart and your position on the map.
+
+      The navigation is a dark floating pill, so it stays easy to find over the light screens. On a live run the route carries numbered split markers, and the flag, pause and stop buttons sit in a bottom sheet within thumb reach.
+- discriminant: image
+  value:
+    image: ../../assets/explorations/sports-tracker/01-hand-held-home.png
+    alt: The home dashboard on a phone held in two hands.
+- discriminant: image
+  value:
+    image: ../../assets/explorations/sports-tracker/02-speed-card.png
+    alt: A close-up of the weekly average speed card.
+- discriminant: image
+  value:
+    image: ../../assets/explorations/sports-tracker/03-schedule.png
+    alt: A close-up of the steps, calories and schedule cards with the floating navigation.
