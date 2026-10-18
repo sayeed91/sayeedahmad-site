@@ -46,7 +46,7 @@ export default config({
         video: fields.file({
           label: 'Cover video',
           description:
-            'Shown on the home tile and at the top of the page. MP4, 4:3 (e.g. 1600 × 1200 from Figma Motion), under 25 MB. It is compressed automatically for the page and the home tile, and its first frame becomes the thumbnail.',
+            'Shown on the home tile and at the top of the page. MP4, 4:3 (e.g. 1600 × 1200 from Figma Motion), under 25 MB. It plays at the top of the page and is compressed automatically. Its first frame becomes the still thumbnail on the home tile.',
           ...files,
         }),
         videoSpeed: fields.number({

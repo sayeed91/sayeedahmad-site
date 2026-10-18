@@ -5,7 +5,6 @@ import HomeNav from '../components/HomeNav.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
 import SheetOverlay from '../components/SheetOverlay.astro';
-import LoopVideo from '../components/LoopVideo.astro';
 import avatar from '../assets/home/avatar.png';
 import { site, cases, experience, recommendations } from '../data/site';
 import { getExplorations } from '../data/explorations';
@@ -125,16 +124,7 @@ const explorations = (await getExplorations()).slice(0, 6);
             return (
             <Tile class="exp" {...link}>
               <div class:list={['exp__thumb', !x.thumb && 'exp__thumb--empty']}>
-                {x.thumb && x.video ? (
-                  <LoopVideo
-                    src={x.video.tile}
-                    poster={x.thumb}
-                    label={`${x.title}, ${x.type.toLowerCase()} concept`}
-                    width={960}
-                    height={720}
-                    class="exp__media"
-                  />
-                ) : x.thumb && (
+                {x.thumb && (
                   <Image
                     src={x.thumb}
                     alt={`${x.title}, ${x.type.toLowerCase()} concept`}
@@ -487,15 +477,13 @@ const explorations = (await getExplorations()).slice(0, 6);
     border-radius: 12px;
     overflow: hidden;
   }
-  .exp__thumb img,
-  .exp__thumb :global(.exp__media) {
+  .exp__thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 200ms ease-out;
   }
-  .exp:hover .exp__thumb img,
-  .exp:hover .exp__thumb :global(.exp__media) {
+  .exp:hover .exp__thumb img {
     transform: scale(1.03);
   }
   .exp__meta {

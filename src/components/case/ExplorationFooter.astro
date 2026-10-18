@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import Icon from '../Icon.astro';
-import LoopVideo from '../LoopVideo.astro';
 import { explorationNeighbours, type Exploration } from '../../data/explorations';
 
 // Previous / next and "More explorations" at the end of an exploration page.
@@ -48,12 +47,8 @@ const allExplorationsHref = '#';
         return (
           <Tag class="card" href={href(x)} data-sheet={x.hasPage ? '' : undefined}>
             <div class="card__thumb">
-              {x.thumb && x.video ? (
-                <LoopVideo src={x.video.tile} poster={x.thumb} label={`${x.title}, ${x.type.toLowerCase()} concept`} width={960} height={720} />
-              ) : (
-                x.thumb && (
-                  <Image src={x.thumb} alt={`${x.title}, ${x.type.toLowerCase()} concept`} widths={[308, 616, 924]} sizes="(max-width: 560px) calc(100vw - 40px), 308px" />
-                )
+              {x.thumb && (
+                <Image src={x.thumb} alt={`${x.title}, ${x.type.toLowerCase()} concept`} widths={[308, 616, 924]} sizes="(max-width: 560px) calc(100vw - 40px), 308px" />
               )}
             </div>
             <div class="card__meta">
@@ -155,8 +150,7 @@ const allExplorationsHref = '#';
     overflow: hidden;
     background: var(--bg);
   }
-  .card__thumb :global(img),
-  .card__thumb :global(loop-video) {
+  .card__thumb :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;

@@ -2,14 +2,13 @@
 // upload the raw export from Figma Motion. For each video it writes, into
 // src/generated/explorations/<slug>/ (not committed):
 //   <key>-1280.mp4   page size (640px column at 2x)
-//   <key>-960.mp4    home tile size (cover video only)
 //   <key>-poster.png first frame at 1920×1440, shown before playback and as the thumbnail
 // <key> is the video's path inside src/assets/explorations/<slug>/ (see videoKey
 // in src/data/explorations.ts). A hash of the source and speed skips videos that
 // are already done, so CI only encodes what changed.
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, createReadStream } from 'node:fs';
+import { existsSync, mkdirSync, rmSync, readdirSync, readFileSync, writeFileSync, createReadStream } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
@@ -73,12 +72,13 @@ for (const file of readdirSync(contentDir).filter((f) => f.endsWith('.yaml'))) {
     const out = join(outRoot, slug);
     const stamp = join(out, `${key}.hash`);
     const hash = await hashFile(src, `v3:${speed}:${cover}`);
+    // Home tiles are stills now; drop the old tile-size video so it isn't published.
+    rmSync(join(out, `${key}-960.mp4`), { force: true });
     if (existsSync(stamp) && readFileSync(stamp, 'utf8') === hash) continue;
 
     console.log(`[videos] ${slug}/${key}: encoding at ${speed}x…`);
     mkdirSync(out, { recursive: true });
     encode(src, speed, '1280:960', 24, join(out, `${key}-1280.mp4`));
-    if (cover) encode(src, speed, '960:720', 26, join(out, `${key}-960.mp4`));
     execFileSync(ffmpeg, [
       '-v', 'error', '-y', '-i', src, '-frames:v', '1',
       '-vf', 'scale=1920:1440:force_original_aspect_ratio=increase:flags=lanczos,crop=1920:1440',

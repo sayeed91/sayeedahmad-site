@@ -26,7 +26,6 @@ export function videoFiles(slug: string, path: string, speed?: number | null) {
   const key = videoKey(path, slug, Number(speed) || 1);
   return {
     page: videoUrls[generated(slug, `${key}-1280.mp4`)],
-    tile: videoUrls[generated(slug, `${key}-960.mp4`)],
     poster: posters[generated(slug, `${key}-poster.png`)],
   };
 }
@@ -38,7 +37,8 @@ export type Exploration = {
   isNew: boolean;
   // Poster frame when there is a video, otherwise the uploaded thumbnail.
   thumb?: ImageMetadata;
-  video?: { tile: string; hero: string };
+  // Plays only at the top of the exploration page; tiles show the poster.
+  video?: { hero: string };
   // A page exists once it has a title and at least one section.
   hasPage: boolean;
   entry: CollectionEntry<'explorations'>;
@@ -51,7 +51,7 @@ export async function getExplorations(): Promise<Exploration[]> {
       const d = entry.data;
       const slug = entry.id;
       const files = d.video ? videoFiles(slug, d.video, d.videoSpeed) : undefined;
-      const video = files?.tile && files.page && files.poster ? { tile: files.tile, hero: files.page } : undefined;
+      const video = files?.page && files.poster ? { hero: files.page } : undefined;
       const poster = files?.poster;
       return {
         slug,
