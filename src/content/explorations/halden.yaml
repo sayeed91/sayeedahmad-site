@@ -10,25 +10,24 @@ tags:
   - Desktop + mobile
   - Oct 2026
 lede: >-
-  A landing page for a made-to-order furniture studio in the Hudson Valley. Concept work for an invented brand: I
-  wanted the photography to carry the page, so the type stays quiet and a line only appears where two things meet.
+  A landing page for a made-to-order furniture studio in the Hudson Valley. Concept work for an invented brand. I wanted the photography to carry the page, so the type stays quiet and a line only appears where two things meet.
 videoAlt: A scroll through the Halden landing page on desktop and mobile.
 sections:
   - discriminant: text
     value:
       heading: Challenge
       body: |-
-        Nobody spends close to five thousand dollars on a chair they have never touched without some hesitation. In a showroom that hesitation is handled by the room itself: the light is controlled, each piece has space around it, and you can walk up and check the grain with your hand. Online, all of that is gone and the buyer is left with a photo and a price.
+        Nobody spends close to five thousand dollars on a chair they have never touched without some hesitation. In a showroom that hesitation is handled by the room itself. The light is controlled, each piece has space around it, and you can walk up and check the grain with your hand. Online, all of that is gone and the buyer is left with a photo and a price.
 
         Most furniture sites respond by showing more. More products per row, more badges, more offers. That works for a $200 shelf, but it works against a made-to-order piece, because a crowded page tells the buyer this is ordinary stock. The real problem was how to give one chair the same attention on a screen that it gets on a showroom floor, without hiding the practical details a serious buyer still needs, like price, size and lead time.
   - discriminant: image
     value:
       image: ../../assets/explorations/halden/01-overview.png
-      alt: "Halden desktop sections side by side: the hero, the workshop statement, the Hale chair page, the collection and the rooms."
+      alt: "Halden desktop sections side by side, the hero, the workshop statement, the Hale chair page, the collection and the rooms."
   - discriminant: image
     value:
       image: ../../assets/explorations/halden/02-mobile-wall.png
-      alt: "Halden mobile screens on a dark background: the hero, the Hale chair, the collection list and the menu."
+      alt: "Halden mobile screens on a dark background, the hero, the Hale chair, the collection list and the menu."
   - discriminant: text
     value:
       heading: Solution
@@ -45,7 +44,7 @@ sections:
   - discriminant: image
     value:
       image: ../../assets/explorations/halden/03-shot-05.png
-      alt: "Halden type: Cormorant Garamond for names and statements, Hanken Grotesk for the interface, shown over the section headings."
+      alt: "Halden type. Cormorant Garamond for names and statements, Hanken Grotesk for the interface, shown over the section headings."
   - discriminant: image
     value:
       image: ../../assets/explorations/halden/04-product.png
@@ -53,7 +52,7 @@ sections:
   - discriminant: image
     value:
       image: ../../assets/explorations/halden/05-woods.png
-      alt: "The wood and finish swatches: paper, bone, walnut, olive, espresso and ink, next to a black walnut close-up."
+      alt: "The wood and finish swatches, paper, bone, walnut, olive, espresso and ink, next to a black walnut close-up."
   - discriminant: image
     value:
       image: ../../assets/explorations/halden/06-full-page.png

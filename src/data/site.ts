@@ -29,7 +29,7 @@ export const nav = [
 export const cases = [
   {
     slug: 'elegant-themes',
-    title: 'Elegant Themes: Divi layouts for non-designers',
+    title: 'Elegant Themes · Divi layouts for non-designers',
     period: '2017 – 2026',
     summary:
       'Nine years on Divi, a builder with nearly a million customers, most of them not designers. 200+ layout packs, one Figma source of truth for every Divi module, and the templates Divi AI builds pages from.',
@@ -38,7 +38,7 @@ export const cases = [
   },
   {
     slug: 'rise',
-    title: 'Rise: paying global teams',
+    title: 'Rise · Paying global teams',
     period: '5 months · 2023',
     summary:
       'Product design for a payroll and compliance platform that pays contractors in 190+ countries. About 70 screens across six product areas, in light and dark, with tokens named 1:1 with Tailwind.',
@@ -47,7 +47,7 @@ export const cases = [
   },
   {
     slug: 'moen',
-    title: 'Moen: three smart-water apps into one',
+    title: 'Moen · Three smart-water apps into one',
     period: '8 months · 2023',
     summary:
       'One of four designers on the merge. I owned the source-of-truth Figma file and kept every screen attached to the 400+ component system, ready for handoff.',

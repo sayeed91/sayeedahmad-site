@@ -10,7 +10,7 @@ tags:
   - Desktop + mobile
   - Oct 2026
 lede: >-
-  Aurel is a concept perfume house with three scents, each named after an hour of the same evening: 17:20 Low Sun,
+  Aurel is a concept perfume house with three scents, each named after an hour of the same evening, 17:20 Low Sun,
   18:42 Last Light and 21:05 After Dark. I designed the landing page and an animated scroll prototype for it, in
   desktop and mobile.
 videoAlt: A scroll through the Aurel landing page on desktop and mobile.
@@ -25,12 +25,12 @@ sections:
   - discriminant: image
     value:
       image: ../../assets/explorations/aurel/01-shot-03.png
-      alt: "The Aurel hero on desktop and mobile: the 18:42 bottle in front of the brand name, with the line Stay for the last light."
+      alt: "The Aurel hero on desktop and mobile. The 18:42 bottle sits in front of the brand name, with the line Stay for the last light."
   - discriminant: text
     value:
       heading: Solution
       body: |-
-        The page tells one story: an evening. It starts in pale cream and ends in deep red, on a single gradient, so there is no line between two sections.
+        The page tells the story of one evening. It starts in pale cream and ends in deep red, on a single gradient, so there is no line between two sections.
 
         - Each perfume gets one full screen. The bottle stays on the centre line and only the liquid changes colour.
         - The time sits behind the bottle at 400 px, the same way the brand name sits behind it in the hero.
@@ -44,7 +44,7 @@ sections:
   - discriminant: image
     value:
       image: ../../assets/explorations/aurel/03-shot-02.png
-      alt: "The three Aurel perfumes side by side: 17:20 Low Sun, 18:42 Last Light and 21:05 After Dark."
+      alt: "The three Aurel perfumes side by side, 17:20 Low Sun, 18:42 Last Light and 21:05 After Dark."
   - discriminant: image
     value:
       image: ../../assets/explorations/aurel/04-full-page.png

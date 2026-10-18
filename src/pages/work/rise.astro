@@ -27,7 +27,7 @@ import bento from '../../assets/rise/system-bento.png';
     tags={['Rise, via UX Cabin', 'Web app · Design system', '2023']}
     lede="Rise pays contractors in 190+ countries, in fiat or crypto, and keeps every payment compliant. The engine worked, but the old interface didn’t explain it. I redesigned the product end to end, from onboarding to timesheets, and built the design system engineering ships from."
   >
-    <Figure src={cover} alt="The Rise payer dashboard in dark mode: payment totals, action items and a 30-day forecast." eager />
+    <Figure src={cover} alt="The Rise payer dashboard in dark mode, with payment totals, action items and a 30-day forecast." eager />
   </Intro>
 
   <Meta
@@ -55,14 +55,14 @@ import bento from '../../assets/rise/system-bento.png';
     </p>
     <Figure
       src={payerPayee}
-      alt="Payer, the company: funds the account, pays the team in one run, checks costs and timesheets. Payee, the contractor: gets verified, logs time and sends invoices, withdraws to a bank or a wallet. Shared by both: one Rise ID, one dashboard layout, one component set."
+      alt="Payer, the company, funds the account, pays the team in one run, checks costs and timesheets. Payee, the contractor, gets verified, logs time and sends invoices, withdraws to a bank or a wallet. Both share one Rise ID, one dashboard layout, one component set."
     />
   </Chapter>
 
   <Chapter title="How I worked through it">
     <Figure
       src={journey}
-      alt="Four steps: Audit, listed what the old app made hard, page by page. Map, rebuilt the structure for payer and payee. Explore, tried several layouts per page before choosing. Systemise, turned what worked into tokens and components."
+      alt="Four steps. Audit listed what the old app made hard, page by page. Map rebuilt the structure for payer and payee. Explore tried several layouts per page before choosing. Systemise turned what worked into tokens and components."
     />
   </Chapter>
 
@@ -70,21 +70,21 @@ import bento from '../../assets/rise/system-bento.png';
     <div class="decision">
       <h3 class="h3"><span class="h3__n">1</span>Ask about crypto before assuming it</h3>
       <p class="p">
-        Most contractors have never owned a crypto wallet. Onboarding asks one question first: make it easy for me, give
+        Most contractors have never owned a crypto wallet. Onboarding asks one question first. Make it easy for me, give
         me a new wallet, or I already have one. Beginners get a Rise security key they unlock with a password, and only
         people who bring their own wallet are asked about networks.
       </p>
-      <Figure src={d1} alt="Rise onboarding, wallet step, with three choices: make it easy for me, I don’t have a wallet but I want one, and I have a Web3 wallet." />
+      <Figure src={d1} alt="Rise onboarding, wallet step, with three choices, make it easy for me, I don’t have a wallet but I want one, and I have a Web3 wallet." />
     </div>
     <div class="decision">
       <h3 class="h3"><span class="h3__n">2</span>Bank or wallet, one withdraw screen</h3>
       <p class="p">
-        Bank accounts and wallets sit in one list. Pick either and the screen stays the same: amount, both fees and what
+        Bank accounts and wallets sit in one list. Pick either and the screen stays the same, showing the amount, both fees and what
         actually lands, all before Confirm. Only the destination block changes.
       </p>
       <Figure
         src={d2}
-        alt="The withdraw screen with three highlights: 1, pick a destination from bank accounts and wallets in one list; 2, the same every time, amount, both fees and what lands; 3, only this changes, bank details or a wallet address."
+        alt="The withdraw screen with three highlights. 1, pick a destination from bank accounts and wallets in one list; 2, the same every time, amount, both fees and what lands; 3, only this changes, bank details or a wallet address."
       />
     </div>
     <div class="decision">
@@ -93,17 +93,17 @@ import bento from '../../assets/rise/system-bento.png';
         The Rise ID card is the user’s identity and login in one. It moves through five states, from unverified to a
         verified company with a pay schedule, so people can see what’s left before they can get paid.
       </p>
-      <Figure src={d3} alt="The Rise ID card in five states: unverified, onboarding, verified, company and pay schedule." />
+      <Figure src={d3} alt="The Rise ID card in five states, unverified, onboarding, verified, company and pay schedule." />
     </div>
     <div class="decision">
       <h3 class="h3"><span class="h3__n">4</span>Timesheets that show where the time goes</h3>
       <p class="p">
-        Payers open Timesheets to check hours before they pay. The page reads top to bottom: this month’s totals, how the
+        Payers open Timesheets to check hours before they pay. The page reads top to bottom, starting with this month’s totals, how the
         days compare, then each entry with its status.
       </p>
       <Figure
         src={d4}
-        alt="The Timesheets page with three highlights: 1, totals first, hours, billable, non-billable and uninvoiced above every row; 2, week or month, one switch changes the chart’s range; 3, status on every row, draft and submitted look different at a glance."
+        alt="The Timesheets page with three highlights. 1, totals first, hours, billable, non-billable and uninvoiced above every row; 2, week or month, one switch changes the chart’s range; 3, status on every row, draft and submitted look different at a glance."
       />
     </div>
   </Chapter>
@@ -115,7 +115,7 @@ import bento from '../../assets/rise/system-bento.png';
     </p>
     <Figure
       src={bento}
-      alt="Design system overview: one purple in eight steps, Figtree for money, a type anatomy of real Rise cards, token name equals class name, every input and button state, and one dashboard split between light and dark."
+      alt="Design system overview. One purple in eight steps, Figtree for money, a type anatomy of real Rise cards, token name equals class name, every input and button state, and one dashboard split between light and dark."
     />
   </Chapter>
 
